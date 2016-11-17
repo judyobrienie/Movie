@@ -5,7 +5,7 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 public class User 
 {
   
-  public int   userId;
+  public long   userId;
   public String firstName;
   public String lastName;
   public int age;
@@ -19,9 +19,9 @@ public class User
   {
   }
   
-  public User(int userId, String firstName, String lastName,int age, String gender, String occupation)
+  public User( String firstName, String lastName,int age, String gender, String occupation)
   {
-    this.userId = userId;
+    
     this.firstName = firstName;
     this.lastName = lastName;
     this.age = age;
@@ -31,15 +31,15 @@ public class User
   
   public String toString()
   {
-    return toStringHelper(this).addValue(userId)
-    		                   .addValue(firstName)
-                               .addValue(lastName)
-                               .addValue(age)
-                               .addValue(occupation)                               
-                               .toString();
+    return toStringHelper(this).addValue(firstName)
+    							.addValue(lastName)
+    							.addValue(age)
+    							.addValue(occupation)                               
+    							.toString();
+                              
   }
 
-public int getUserId() {
+public Long getUserId() {
 	return userId;
 }
 
@@ -114,7 +114,7 @@ public int hashCode() {
 	result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 	result = prime * result + ((occupation == null) ? 0 : occupation.hashCode());
 	result = prime * result + ((password == null) ? 0 : password.hashCode());
-	result = prime * result + userId;
+	result = prime * result + (int) (userId ^ (userId >>> 32));
 	return result;
 }
 
@@ -163,7 +163,7 @@ public boolean equals(Object obj) {
 		return false;
 	return true;
 }
-  
+
   
   
   

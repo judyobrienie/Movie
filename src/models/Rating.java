@@ -6,6 +6,15 @@ public class Rating {
 	
 	public int userId;
 	public int movieId;
+	@Override
+	public String toString() {
+		return "Rating [userId=" + userId + ", movieId=" + movieId + ", rating=" + rating + "]";
+	}
+
+
+
+
+
 	public int rating;
 
 

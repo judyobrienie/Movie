@@ -1,5 +1,6 @@
 package models;
 
+import java.util.Date;
 import java.util.Set;
 
 public class Movie {
@@ -8,21 +9,30 @@ public class Movie {
   
   public int   movieId;
   public String title;
-  public int releaseDate;
+  public String releaseDate;
   public String ImDbUrl;
-  private Set<Genre>genre;
+  //private Set<Genre>genre;
  
   
 
-public Movie(int movieId, String title, int releaseDate,String ImDbUrl, Set<Genre> genre)
+public Movie(int movieId, String title, String releaseDate,String ImDbUrl)
   {
     this.movieId = movieId;
     this.title = title;
     this.releaseDate = releaseDate;
     this.ImDbUrl = ImDbUrl;
-    this.genre = genre;
+   
    
   }
+
+
+
+
+@Override
+public String toString() {
+	return "Movie [movieId=" + movieId + ", title=" + title + ", releaseDate=" + releaseDate + ", ImDbUrl=" + ImDbUrl
+			+ "]";
+}
 
 
 
@@ -51,13 +61,13 @@ public void setTitle(String title) {
 
 
 
-public int getReleaseDate() {
+public String getReleaseDate() {
 	return releaseDate;
 }
 
 
 
-public void setReleaseDate(int releaseDate) {
+public void setReleaseDate(String releaseDate) {
 	this.releaseDate = releaseDate;
 }
 
@@ -73,17 +83,6 @@ public void setImDbUrl(String imDbUrl) {
 	ImDbUrl = imDbUrl;
 }
 
-
-
-public Set<Genre> getGenre() {
-	return genre;
-}
-
-
-
-public void setGenre(Set<Genre> genre) {
-	this.genre = genre;
-}
 
 
 
