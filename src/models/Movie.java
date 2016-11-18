@@ -11,16 +11,17 @@ public class Movie {
   public String title;
   public String releaseDate;
   public String ImDbUrl;
-  //private Set<Genre>genre;
+  private Set<String>genre;
  
   
 
-public Movie(int movieId, String title, String releaseDate,String ImDbUrl)
+public Movie(int movieId, String title, String releaseDate,String ImDbUrl, Set<String>genre)
   {
     this.movieId = movieId;
     this.title = title;
     this.releaseDate = releaseDate;
     this.ImDbUrl = ImDbUrl;
+    this.genre = genre;
    
    
   }
@@ -28,11 +29,19 @@ public Movie(int movieId, String title, String releaseDate,String ImDbUrl)
 
 
 
+
+
+
+
 @Override
 public String toString() {
 	return "Movie [movieId=" + movieId + ", title=" + title + ", releaseDate=" + releaseDate + ", ImDbUrl=" + ImDbUrl
-			+ "]";
+			+ ", genre=" + genre + "]";
 }
+
+
+
+
 
 
 
