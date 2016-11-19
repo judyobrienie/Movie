@@ -1,42 +1,66 @@
 package models;
 
+
+
+import static com.google.common.base.MoreObjects.toStringHelper;
+
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 public class Movie {
 
 
-  
-  public int   movieId;
+  static int  counter = 1;
+  public static long   movieId;
   public String title;
   public String releaseDate;
-  public String ImDbUrl;
-  private Set<Genre>genre;
+  public String imDbUrl;
+  public Set<Genre>genre;
+  public static int totalRatings;
+  
+  public static List<Integer> movieRating = new ArrayList<>();
  
   
+  public Movie(){
+	  
+  }
 
-public Movie(int movieId, String title, String releaseDate,String ImDbUrl, Set<Genre>genre)
+public Movie(String title, String releaseDate,String imDbUrl, Set<Genre>genre)
   {
-    this.movieId = movieId;
+	this.movieId = counter++;
     this.title = title;
     this.releaseDate = releaseDate;
-    this.ImDbUrl = ImDbUrl;
+    this.imDbUrl = imDbUrl;
     this.genre = genre;
    
    
   }
 
-
-
-
-
-
-
-
-@Override
+/*@Override
 public String toString() {
-	return "Movie [movieId=" + movieId + ", title=" + title + ", releaseDate=" + releaseDate + ", ImDbUrl=" + ImDbUrl
-			+ ", genre=" + genre + "]";
+	return  "  :   "+ title +  "      " + releaseDate + "     " + imDbUrl + "     " +  genre + "\n" + movieRating;
+}*/
+
+
+public String toString()
+{
+  return toStringHelper(this).addValue(title)
+  							.addValue(releaseDate)
+  							.addValue(imDbUrl)
+  							.addValue(genre)                             
+  							.toString();
+}
+
+
+
+
+
+
+public void addRating(Rating rating){
+	
+	totalRatings += Rating.getRating();
 }
 
 
@@ -46,13 +70,15 @@ public String toString() {
 
 
 
-public int getMovieId() {
+
+
+public static long getMovieId() {
 	return movieId;
 }
 
 
 
-public void setMovieId(int movieId) {
+public void setMovieId(long movieId) {
 	this.movieId = movieId;
 }
 
@@ -79,19 +105,6 @@ public String getReleaseDate() {
 public void setReleaseDate(String releaseDate) {
 	this.releaseDate = releaseDate;
 }
-
-
-
-public String getImDbUrl() {
-	return ImDbUrl;
-}
-
-
-
-public void setImDbUrl(String imDbUrl) {
-	ImDbUrl = imDbUrl;
-}
-
 
 
 

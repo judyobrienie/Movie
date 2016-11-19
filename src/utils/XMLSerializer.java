@@ -40,7 +40,7 @@ public class XMLSerializer implements Serializer
     {
       XStream xstream = new XStream(new DomDriver());
       is = xstream.createObjectInputStream(new FileReader(file));
-      stack = (Stack)is.readObject();
+      stack = (Stack) is.readObject();
     }
     finally
     {

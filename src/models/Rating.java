@@ -6,16 +6,11 @@ public class Rating {
 	
 	public int userId;
 	public int movieId;
+	public static int  rating;
 	@Override
 	public String toString() {
 		return "Rating [userId=" + userId + ", movieId=" + movieId + ", rating=" + rating + "]";
 	}
-
-
-
-
-
-	public int rating;
 
 
 	 
@@ -65,7 +60,7 @@ public class Rating {
 
 
 
-	public int getRating() {
+	public static int getRating() {
 		return rating;
 	}
 
