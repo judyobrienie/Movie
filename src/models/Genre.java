@@ -1,6 +1,6 @@
 package models;
 
-import java.util.Collections;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,7 +25,7 @@ public  enum Genre {
 	WAR(17),
 	WESTERN(18);
 
-	public static  Map<Integer, String> genreMap = genreMap();
+	public static  Map<Integer, Genre> genreMap = genreMap();
 	public int id;
 	
 	Genre(int id) {
@@ -34,21 +34,21 @@ public  enum Genre {
 	}
 	
 	
-	private static Map<Integer, String> genreMap() {
+	private static Map<Integer, Genre> genreMap() {
 		genreMap = new HashMap<>();
 		for(Genre genre : Genre.values()) {
 			
-			genreMap.put(genre.getId(), genre.name());
+			genreMap.put(genre.getId(), genre);
 		}
 		return genreMap;
 	}
 	
-	public static Map<Integer, String> getGenreMap() {
+	public static Map<Integer, Genre> getGenreMap() {
 		return genreMap;
 	}
 
 
-	public static void setGenreMap(Map<Integer, String> genreMap) {
+	public static void setGenreMap(Map<Integer, Genre> genreMap) {
 		Genre.genreMap = genreMap;
 	}
 
@@ -64,7 +64,7 @@ public  enum Genre {
 
 
 
-	public static String fromId(int genreId) {
+	public static Genre fromId(int genreId) {
 		
 		return genreMap.get(genreId);
 }

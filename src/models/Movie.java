@@ -11,11 +11,11 @@ public class Movie {
   public String title;
   public String releaseDate;
   public String ImDbUrl;
-  private Set<String>genre;
+  private Set<Genre>genre;
  
   
 
-public Movie(int movieId, String title, String releaseDate,String ImDbUrl, Set<String>genre)
+public Movie(int movieId, String title, String releaseDate,String ImDbUrl, Set<Genre>genre)
   {
     this.movieId = movieId;
     this.title = title;

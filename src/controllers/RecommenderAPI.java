@@ -1,13 +1,14 @@
 package controllers;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
@@ -17,24 +18,44 @@ import models.Genre;
 import models.Movie;
 import models.Rating;
 import models.User;
+import utils.Serializer;
 
 
 
 public class RecommenderAPI {
+    private Serializer serializer;
 
 	
 	Map<Long,User> listOfUser = new HashMap<>();
 	List<Movie> listOfMovie= new ArrayList<>();
 	List<Rating> listOfRating= new ArrayList<>();
 	
-	/**
-	 * @param Construcor to read in a File 
-	 * @returns a populated array list of type Term
-	 */
 	
-	public  RecommenderAPI() throws Exception {
+	
+	public  RecommenderAPI(Serializer serializer)throws Exception {
 
-
+        this.serializer = serializer; 
+	}
+	
+	@SuppressWarnings("unchecked")
+	  public void load() throws Exception
+	  {
+	    serializer.read();
+	    listOfUser = (Map<Long,User>)serializer.pop();
+	    //listOfMovie= new ArrayList<>(); serializer.pop();
+	   // listOfRating= new ArrayList<>();serializer.pop();
+	    
+	  }
+	  
+	  void store() throws Exception
+	  {
+	   serializer.push(listOfUser);
+	    //serializer.push(listOfMovie);
+	   // serializer.push(listOfRating);
+	    serializer.write(); 
+	  }
+	
+	public RecommenderAPI() throws Exception{
 		File usersFile = new File("../Movie/lib/users5.dat");
 		Scanner inUsers = new Scanner(usersFile);
 		String delims = "[ | ]";//each field in the file is separated(delimited) by a space.
@@ -65,24 +86,23 @@ public class RecommenderAPI {
 			// parse user details string
 			String[] movieTokens = movieDetails.split(delims1);
 	
-			Set<String>genres = new HashSet<>();
+			Set<Genre>genres = new HashSet<>();
 			
-			for(int i = 4; i > Genre.values().length; i++){
+			for(int i = 4; i < Genre.values().length; i++){
 				if(movieTokens[i].equals("1")){
 					int genreId = i-4;
 					genres.add(Genre.fromId(genreId));
 				}
 				
 			}
-			///////testing code
-			genres.add(Genre.fromId(1));
-		    
-			Iterator<String> iterator = genres.iterator(); 
+			
+		    ////testing hashset
+			/*Iterator<Genre> iterator = genres.iterator(); 
 		       System.out.println("space");
 			   while (iterator.hasNext()){
 				   
 			   System.out.println("Value: "+iterator.next() + " ");  
-			   }
+			   }/*
 			   
 			//date
 			/*DateFormat df = new SimpleDateFormat("yyyyMMdd");
@@ -122,13 +142,44 @@ public class RecommenderAPI {
 	
 	
 	
-	public User addUser(String firstName, String lastName,int age, String gender, String occupation) 
-	  {
-		
-	    User user = new User (firstName, lastName,age, gender, occupation);
+	public User addUser(User user) {
 	    listOfUser.put((long) (listOfUser.size()+1) , user);
 	    return user;
-	  }
+		
+	}
+	
 
+	/*  public User addUser(String firstName, String lastName,int age, String gender, String occupation){ 
+	
+	  System.out.println("Please enter First Name: ");
+	  input.nextLine(); //swallow bug
+      firstName = input.nextLine();
+      System.out.println("Please enter the Surname: ");
+      lastName = input.nextLine();
+      boolean goodInput = false;
+      age = 0;
+      do {
+      try {
+      	System.out.println("Please enter the Age: ");
+      	age = Integer.parseInt(input.nextLine());
+      	goodInput = true;
+      	}
+      catch (Exception e) {
+					        System.err.println("Num Expected - you entered text");
+					        }
+      	} while (!goodInput);	
+      System.out.println("Please enter Gender  M or F: ");
+      gender = input.nextLine();
+      System.out.println("Please enter the Occupation: ");
+     occupation = input.nextLine();
+      User user = new User (firstName, lastName, age, gender, occupation);
+	   
+		listOfUser.put((long) (listOfUser.size()+1) , user);
+		System.out.println(user + "Has Been Added to List of Users");
+	return  user;*/
+			
+
+
+	
 }
 
