@@ -30,7 +30,7 @@ public class RecommenderAPI {
 	Map<Long,User> listOfUser = new HashMap<>();
 	Map<Long, Movie>  listOfMovie= new HashMap<>();
 	List<Rating> listOfRating= new ArrayList<>();
-	
+	Map<Long, Float> movieRating = new HashMap<>();
 
 
 
@@ -156,31 +156,42 @@ public class RecommenderAPI {
 					listOfUser.get(j).userRating.put((listOfRating.get(i).getMovieId()), listOfRating.get(i).getRating());	
                 }
 				}
-		 }
+		}
 			
 		/**
 		 * Adding Ratings to Individual Movie
 		 */
-           for(int i = 0; i < listOfRating.size(); i++){
-		
+		 for(int i = 0; i < listOfRating.size(); i++){
+				
+				
+				for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
+				{
+				        if ((listOfRating.get(i).getMovieId()).equals(j)){
+						listOfMovie.get(j).movieRating.put((listOfRating.get(i).getUserId()), listOfRating.get(i).getRating());	
+						{
+						listOfMovie.get(j).addTotalRating(listOfRating.get(i).getRating());
+						}
+	                }
+					}
+			 }
 			
-			for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
-			{
-			        if ((listOfRating.get(i).getMovieId()).equals(j)){
-					listOfMovie.get(j).movieRating.put((listOfRating.get(i).getUserId()), listOfRating.get(i).getRating());	
-					listOfMovie.get(j).addTotalRating(listOfRating.get(i).getRating());
-					
-                }
-				}
-		 }
+           
+           ///Adding Total Ratings to Each Movie
 			
-		 
+          
+          /*
+           for(Long j= (long) 0; j < listOfMovie.size() ; j++)
+           {
+        	   for(Long k = (long) 1; k < listOfMovie.get(k).movieRating.size()+1 ; k++)
+        	   {
+           //listOfMovie.get(j).addTotalRating(listOfMovie.get(k).movieRating.get(k));
+           listOfMovie.get(j).addTotalRating(listOfRating.get(k).getRating());
+        	   }
+        	   
+           }*/
+        	   
 
 	}
-
-	//Add Existing Ratings to Each Movie///////////////////////////////////////////////////////
-
-	// System.out.println(Movie.movieRating);  
 
 
 
@@ -211,6 +222,9 @@ public class RecommenderAPI {
 
 public Rating addRating(Long userID, Long movieID, Float rating){
 	listOfUser.get(userID).userRating.put(movieID, rating);
+	listOfMovie.get(movieID).movieRating.put((userID), rating);
+	
+	System.out.println("User : " + userID + " has added a rating of " + rating +" to the Movie " + movieID);
 	
 	return null;
 

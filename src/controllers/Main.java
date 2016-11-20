@@ -143,8 +143,9 @@ public class Main {
 						Set<Genre>genre = new HashSet<>();
 						int genreId = input.nextInt();
 						genre.add(Genre.fromId(genreId));
-						long movieId = Movie.getMovieId();
 						Movie movie = new Movie(title, releaseDate, imDbUrl, genre);
+						long movieId = Movie.getMovieId();
+						
 						
 						recommender.addMovie(movieId, movie);
 						
@@ -182,9 +183,11 @@ public class Main {
 					    recommender.addRating(userId1, movieId1, rating1);
 					    
 						
-						System.out.println(recommender.listOfRating);  
+						
 						System.out.println(recommender.listOfUser);
-						System.out.print(recommender.listOfMovie.get(10).totalRating);
+						
+						System.out.print(recommender.listOfMovie.get(9).totalRating + "\n");
+						System.out.print(recommender.listOfMovie.get(9).countUser);
 						
 						//System.out.println(Movie.totalRatings);
 						   

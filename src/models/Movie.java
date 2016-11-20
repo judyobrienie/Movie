@@ -63,7 +63,7 @@ public String toString()
 
 
 
-public static void addTotalRating(Float rating){
+public void addTotalRating(Float rating){
 	
 	totalRating = rating + totalRating;
 	countUser++;
@@ -78,7 +78,7 @@ public static void addTotalRating(Float rating){
 
 
 
-public static long getMovieId() {
+public static  long getMovieId() {
 	return movieId;
 }
 
