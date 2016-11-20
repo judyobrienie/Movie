@@ -4,9 +4,9 @@ package models;
 
 public class Rating {
 	
-	public int userId;
-	public int movieId;
-	public static int  rating;
+	public Long userId;
+	public Long movieId;
+	public Float  rating;
 	@Override
 	public String toString() {
 		return "Rating [userId=" + userId + ", movieId=" + movieId + ", rating=" + rating + "]";
@@ -16,7 +16,7 @@ public class Rating {
 	 
 	  
 
-	public Rating(int userId, int movieId, int rating)
+	public Rating(Long userId, Long movieId, Float rating)
 	  {
 		this.userId = userId;
 	    this.movieId = movieId;
@@ -28,7 +28,7 @@ public class Rating {
 
 
 
-	public int getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
@@ -36,7 +36,7 @@ public class Rating {
 
 
 
-	public void setUserId(int userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
@@ -44,7 +44,7 @@ public class Rating {
 
 
 
-	public int getMovieId() {
+	public Long getMovieId() {
 		return movieId;
 	}
 
@@ -52,7 +52,7 @@ public class Rating {
 
 
 
-	public void setMovieId(int movieId) {
+	public void setMovieId(Long movieId) {
 		this.movieId = movieId;
 	}
 
@@ -60,7 +60,7 @@ public class Rating {
 
 
 
-	public static int getRating() {
+	public float getRating() {
 		return rating;
 	}
 
@@ -68,7 +68,7 @@ public class Rating {
 
 
 
-	public void setRating(int rating) {
+	public void setRating(float rating) {
 		this.rating = rating;
 	}
 

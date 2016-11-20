@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -29,7 +30,8 @@ public class RecommenderAPI {
 	Map<Long,User> listOfUser = new HashMap<>();
 	Map<Long, Movie>  listOfMovie= new HashMap<>();
 	List<Rating> listOfRating= new ArrayList<>();
-    
+	
+
 
 
 	public  RecommenderAPI(Serializer serializer)throws Exception {
@@ -37,18 +39,18 @@ public class RecommenderAPI {
 		this.serializer = serializer; 
 	}
 
-	
+
 	@SuppressWarnings("unchecked")
-	  public void load() throws Exception
-	  {
-	    serializer.read();
-	    listOfUser = (Map<Long, User>) serializer.pop();
-	    listOfMovie  = (Map<Long, Movie>)   serializer.pop();
-	    listOfRating = (List<Rating>)  serializer.pop();
-	  }
-	
-	
-	
+	public void load() throws Exception
+	{
+		serializer.read();
+		listOfUser = (Map<Long, User>) serializer.pop();
+		listOfMovie  = (Map<Long, Movie>)   serializer.pop();
+		listOfRating = (List<Rating>)  serializer.pop();
+	}
+
+
+
 
 	void store() throws Exception
 	{
@@ -113,8 +115,10 @@ public class RecommenderAPI {
 			Date date = df.parse(String.valueOf(movieTokens[2]));*/
 
 			Movie movie = new Movie(movieTokens[1], movieTokens[2], movieTokens[3], genres);
-			
+
 			listOfMovie.put(Movie.getMovieId(), movie);
+
+
 		}
 		inMovies.close();
 
@@ -123,6 +127,7 @@ public class RecommenderAPI {
 		File ratingsFile = new File("../Movie/lib/ratings5.dat");
 		Scanner inRatings = new Scanner(ratingsFile);
 		String delims2 = "[ | ]";//each field in the file is separated(delimited) by a space.
+
 		while (inRatings.hasNextLine()) {
 			// get ratings from data source
 			String ratingDetails = inRatings.nextLine();
@@ -132,54 +137,85 @@ public class RecommenderAPI {
 			String[] ratingTokens = ratingDetails.split(delims2);
 
 
-			Rating rating = new Rating(Integer.parseInt(ratingTokens[0]),Integer.parseInt(ratingTokens[1]),Integer.parseInt(ratingTokens[2]));
-
+			Rating rating = new Rating((Long.parseLong(ratingTokens[0])),(Long.parseLong(ratingTokens[1])), Float.parseFloat(ratingTokens[2]));
 			listOfRating.add(rating);
+
 		}
 		inRatings.close();
 		
-		
+		/**
+		 * Adding Ratings to Individual users
+		 */
 
-		//Add Existing Ratings to Each Movie///////////////////////////////////////////////////////
+		for(int i = 0; i < listOfRating.size(); i++){
 		
-		for(Rating r : listOfRating){
-			   Movie movie = listOfMovie.get(r.getMovieId()-1);
-			   if( movie != null){
-			movie.addRating(r);
-		   }
-
-		  // System.out.println(Movie.movieRating);  
-		   }
+			
+			for(Long j= (long) 1; j < listOfUser.size()+1 ; j++)
+			{
+			        if ((listOfRating.get(i).getUserId()).equals(j)){
+					listOfUser.get(j).userRating.put((listOfRating.get(i).getMovieId()), listOfRating.get(i).getRating());	
+                }
+				}
+		 }
+			
+		/**
+		 * Adding Ratings to Individual Movie
+		 */
+           for(int i = 0; i < listOfRating.size(); i++){
+		
+			
+			for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
+			{
+			        if ((listOfRating.get(i).getMovieId()).equals(j)){
+					listOfMovie.get(j).movieRating.put((listOfRating.get(i).getUserId()), listOfRating.get(i).getRating());	
+					listOfMovie.get(j).addTotalRating(listOfRating.get(i).getRating());
+					
+                }
+				}
+		 }
+			
+		 
 
 	}
+
+	//Add Existing Ratings to Each Movie///////////////////////////////////////////////////////
+
+	// System.out.println(Movie.movieRating);  
+
+
+
 
 
 	public User addUser(Long userId, User user) {
-		
+
 		listOfUser.put(userId, user);
-	    System.out.println("New User ID = " +  userId + " :" + user + " Has Been Added to List Below"+ "\n\n" );
-	    return user;
-		
+		System.out.println("New User ID = " +  userId + " :" + user + " Has Been Added to List Below"+ "\n\n" );
+		return user;
+
 	}
 
 	public  void removeUser(long choice) 
-	  {
-	   listOfUser.remove(choice);
-	    
-	  }
-	
-	
+	{
+		listOfUser.remove(choice);
+
+	}
+
+
 	public Movie addMovie(Long movieId, Movie movie){
 		listOfMovie.put(movieId, movie);
 		System.out.println("New Movie = " +  movieId + " :" + movie + " Has Been Added to List Below"+ "\n\n" );
 		return movie;
-		
+
 	}
+
+
+public Rating addRating(Long userID, Long movieID, Float rating){
+	listOfUser.get(userID).userRating.put(movieID, rating);
 	
-	
-	
-	
-	
-	
+	return null;
+
+
+
+}
 }
 

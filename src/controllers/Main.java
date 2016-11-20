@@ -10,6 +10,7 @@ import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
+import com.google.common.base.Optional;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.DomDriver;
 
@@ -160,16 +161,35 @@ public class Main {
 						
 						break;
 					case 4:
-						for(Rating r : recommender.listOfRating) {
-							Movie m = recommender.listOfMovie.get(r.getMovieId());
-							 {
-								//System.out.println(m);
-								System.out.println(recommender.listOfRating);
-							}
-						}
-						   //System.out.println(Movie.movieRating);  
+						
+						
+						System.out.println("\n" + "Pick A Movie You Would Like To Rate");
+						System.out.println("=======================");
+						Iterator<Long> iterator5 = recommender.listOfMovie.keySet().iterator();
+					    while (iterator5.hasNext()) {
+					      Long key = iterator5.next();
+					      Movie value = recommender.listOfMovie.get(key);
+
+					       System.out.println(key + " " + value);
+					    }
+						
+					    Long movieId1 = input.nextLong();
+					    System.out.println("Enter Your User Id");
+					    Long userId1 = input.nextLong();
+					    System.out.println("Enter Your Rating between -5 being bad and 5 being excellent");
+					    Float rating1 = input.nextFloat();
+					    Rating rating = new Rating(userId1, movieId1, rating1);
+					    recommender.addRating(userId1, movieId1, rating1);
+					    
+						
+						System.out.println(recommender.listOfRating);  
+						System.out.println(recommender.listOfUser);
+						System.out.print(recommender.listOfMovie.get(10).totalRating);
+						
+						//System.out.println(Movie.totalRatings);
 						   
-						// addRating(userID, movieID, rating)
+						   
+						
 						
 						break;
 					case 5:

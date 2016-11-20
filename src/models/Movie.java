@@ -6,7 +6,9 @@ import static com.google.common.base.MoreObjects.toStringHelper;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class Movie {
@@ -18,9 +20,10 @@ public class Movie {
   public String releaseDate;
   public String imDbUrl;
   public Set<Genre>genre;
-  public static int totalRatings;
+  public static float totalRating = 0;
+  public static int countUser= 0;
   
-  public static List<Integer> movieRating = new ArrayList<>();
+  public  Map<Long, Float> movieRating = new HashMap<>();
  
   
   public Movie(){
@@ -49,7 +52,9 @@ public String toString()
   return toStringHelper(this).addValue(title)
   							.addValue(releaseDate)
   							.addValue(imDbUrl)
-  							.addValue(genre)                             
+  							.addValue(genre) 
+  							.addValue(movieRating)
+  							.addValue(totalRating)
   							.toString();
 }
 
@@ -58,9 +63,10 @@ public String toString()
 
 
 
-public void addRating(Rating rating){
+public static void addTotalRating(Float rating){
 	
-	totalRatings += Rating.getRating();
+	totalRating = rating + totalRating;
+	countUser++;
 }
 
 

@@ -1,6 +1,11 @@
 package models;
 import static com.google.common.base.MoreObjects.toStringHelper;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 public class User 
 {
@@ -14,6 +19,8 @@ public class User
   public String email;
   public String password;
   
+  
+  public Map<Long, Float> userRating = new HashMap<>();
   
   public User()
   {
@@ -35,7 +42,8 @@ public class User
     							.addValue(lastName)
     							.addValue(age)
     							.addValue(gender)
-    							.addValue(occupation)                               
+    							.addValue(occupation)  
+    							.addValue(userRating)
     							.toString();
                               
   }
