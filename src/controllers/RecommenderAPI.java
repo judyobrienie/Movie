@@ -45,7 +45,7 @@ public class RecommenderAPI {
 	{
 		serializer.read();
 		listOfUser = (Map<Long, User>) serializer.pop();
-		listOfMovie  = (Map<Long, Movie>)   serializer.pop();
+	    listOfMovie  = (Map<Long, Movie>)   serializer.pop();
 		listOfRating = (List<Rating>)  serializer.pop();
 	}
 
@@ -54,10 +54,14 @@ public class RecommenderAPI {
 
 	void store() throws Exception
 	{
-		serializer.push(listOfUser);
-		serializer.push(listOfMovie);
+
+		
 		serializer.push(listOfRating);
+	    serializer.push(listOfMovie);
+		serializer.push(listOfUser);
 		serializer.write(); 
+		
+		
 	}
 
 	public RecommenderAPI() throws Exception{
@@ -116,7 +120,7 @@ public class RecommenderAPI {
 
 			Movie movie = new Movie(movieTokens[1], movieTokens[2], movieTokens[3], genres);
 
-			listOfMovie.put(Movie.getMovieId(), movie);
+			listOfMovie.put(movie.getMovieId(), movie);
 
 
 		}
@@ -144,7 +148,7 @@ public class RecommenderAPI {
 		inRatings.close();
 		
 		/**
-		 * Adding Ratings to Individual users
+		 * Adding Ratings to Individual Users
 		 */
 
 		for(int i = 0; i < listOfRating.size(); i++){
@@ -168,30 +172,22 @@ public class RecommenderAPI {
 				{
 				        if ((listOfRating.get(i).getMovieId()).equals(j)){
 						listOfMovie.get(j).movieRating.put((listOfRating.get(i).getUserId()), listOfRating.get(i).getRating());	
-						{
+						
+						//sum of total rating per movie
 						listOfMovie.get(j).addTotalRating(listOfRating.get(i).getRating());
-						}
+						
 	                }
-					}
-			 }
+				}
+		 }
 			
+	}   
            
-           ///Adding Total Ratings to Each Movie
 			
           
-          /*
-           for(Long j= (long) 0; j < listOfMovie.size() ; j++)
-           {
-        	   for(Long k = (long) 1; k < listOfMovie.get(k).movieRating.size()+1 ; k++)
-        	   {
-           //listOfMovie.get(j).addTotalRating(listOfMovie.get(k).movieRating.get(k));
-           listOfMovie.get(j).addTotalRating(listOfRating.get(k).getRating());
-        	   }
-        	   
-           }*/
+         //////////////////////METHODS/////////////////
         	   
 
-	}
+	
 
 
 
@@ -223,8 +219,10 @@ public class RecommenderAPI {
 public Rating addRating(Long userID, Long movieID, Float rating){
 	listOfUser.get(userID).userRating.put(movieID, rating);
 	listOfMovie.get(movieID).movieRating.put((userID), rating);
+	listOfMovie.get(movieID).addTotalRating(rating);
 	
-	System.out.println("User : " + userID + " has added a rating of " + rating +" to the Movie " + movieID);
+	System.out.println("User : " + userID + " has added a rating of : " + rating +" to the Movie No :" + movieID + "\n");
+	
 	
 	return null;
 

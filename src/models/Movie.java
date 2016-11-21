@@ -15,13 +15,13 @@ public class Movie {
 
 
   static int  counter = 1;
-  public static long   movieId;
+  public long   movieId;
   public String title;
   public String releaseDate;
   public String imDbUrl;
   public Set<Genre>genre;
-  public static float totalRating = 0;
-  public static int countUser= 0;
+  public float totalRating = 0;
+  public int countUser= 0;
   
   public  Map<Long, Float> movieRating = new HashMap<>();
  
@@ -78,7 +78,7 @@ public void addTotalRating(Float rating){
 
 
 
-public static  long getMovieId() {
+public  long getMovieId() {
 	return movieId;
 }
 

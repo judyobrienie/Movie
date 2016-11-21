@@ -32,16 +32,18 @@ public class Main {
 
 
 
-		/*File  moviestore = new File("moviestore.xml");
+		File  moviestore = new File("moviestore.xml");
 		Serializer serializer = new XMLSerializer(moviestore);
-		RecommenderAPI recommenderAPI= new RecommenderAPI(serializer); 
+		RecommenderAPI rAPI= new RecommenderAPI(serializer); 
 		if (moviestore.isFile())
 		{
-			recommenderAPI.load();
-		}*/
+			rAPI.load();
+		}
+		
+		
 		
 		//Used to Read in the initial FILES
-		RecommenderAPI recommender= new RecommenderAPI();
+		RecommenderAPI r= new RecommenderAPI();
 		
 		System.out.println("Movie Database");
 		System.out.println("-----------------");
@@ -80,12 +82,12 @@ public class Main {
 						String occupation = input.nextLine();
 						User user = new User (firstName, lastName, age, gender, occupation);
 						Long userId = User.getUserId();
-						recommender.addUser(userId, user);
+						r.addUser(userId, user);
 						
-						 Iterator<Long> iterator2 = recommender.listOfUser.keySet().iterator();
+						 Iterator<Long> iterator2 = r.listOfUser.keySet().iterator();
 						    while (iterator2.hasNext()) {
 						       Long key = iterator2.next();
-						      User value = recommender.listOfUser.get(key);
+						      User value = r.listOfUser.get(key);
 
 						       System.out.println(key + " " + value);
 						    }
@@ -96,24 +98,24 @@ public class Main {
 						System.out.println("Choose User to Remove");
 					    System.out.println("=====================");
 					 // iterate map 
-					    Iterator<Long> iterator = recommender.listOfUser.keySet().iterator();
+					    Iterator<Long> iterator = r.listOfUser.keySet().iterator();
 					    while (iterator.hasNext()) {
 					       Long key = iterator.next();
-					      User value = recommender.listOfUser.get(key);
+					      User value = r.listOfUser.get(key);
 
 					       System.out.println(key + " " + value);
 					    }
 					    
 						Long choice = input.nextLong();
-						System.out.println("You have removed" + " : "  + recommender.listOfUser.get(choice)+ "\n");
+						System.out.println("You have removed" + " : "  + r.listOfUser.get(choice)+ "\n");
 						System.out.println("Remaining Users:     " + "\n");
-						recommender.removeUser(choice);
+						r.removeUser(choice);
 						
 						 
-						 Iterator<Long> iterator1 = recommender.listOfUser.keySet().iterator();
+						 Iterator<Long> iterator1 = r.listOfUser.keySet().iterator();
 						    while (iterator1.hasNext()) {
 						       Long key = iterator1.next();
-						      User value = recommender.listOfUser.get(key);
+						      User value = r.listOfUser.get(key);
 
 						       System.out.println(key + " " + value);
 						    }
@@ -123,10 +125,10 @@ public class Main {
 						
 						System.out.println("\n" + "Current List Of Movies");
 						System.out.println("=======================");
-						Iterator<Long> iterator3 = recommender.listOfMovie.keySet().iterator();
+						Iterator<Long> iterator3 = r.listOfMovie.keySet().iterator();
 					    while (iterator3.hasNext()) {
 					      Long key = iterator3.next();
-					      Movie value = recommender.listOfMovie.get(key);
+					      Movie value = r.listOfMovie.get(key);
 
 					       System.out.println(key + " " + value);
 					    }
@@ -144,18 +146,18 @@ public class Main {
 						int genreId = input.nextInt();
 						genre.add(Genre.fromId(genreId));
 						Movie movie = new Movie(title, releaseDate, imDbUrl, genre);
-						long movieId = Movie.getMovieId();
+						long movieId = movie.getMovieId();
 						
 						
-						recommender.addMovie(movieId, movie);
+						r.addMovie(movieId, movie);
 						
 						System.out.println("\n" + "UpDated List Of Movies");
 						System.out.println("=======================");
 
-						Iterator<Long> iterator4 = recommender.listOfMovie.keySet().iterator();
+						Iterator<Long> iterator4 = r.listOfMovie.keySet().iterator();
 					    while (iterator4.hasNext()) {
 					      Long key = iterator4.next();
-					      Movie value = recommender.listOfMovie.get(key);
+					      Movie value = r.listOfMovie.get(key);
 
 					       System.out.println(key + " " + value);
 					    }
@@ -166,10 +168,10 @@ public class Main {
 						
 						System.out.println("\n" + "Pick A Movie You Would Like To Rate");
 						System.out.println("=======================");
-						Iterator<Long> iterator5 = recommender.listOfMovie.keySet().iterator();
+						Iterator<Long> iterator5 = r.listOfMovie.keySet().iterator();
 					    while (iterator5.hasNext()) {
 					      Long key = iterator5.next();
-					      Movie value = recommender.listOfMovie.get(key);
+					      Movie value = r.listOfMovie.get(key);
 
 					       System.out.println(key + " " + value);
 					    }
@@ -180,14 +182,14 @@ public class Main {
 					    System.out.println("Enter Your Rating between -5 being bad and 5 being excellent");
 					    Float rating1 = input.nextFloat();
 					    Rating rating = new Rating(userId1, movieId1, rating1);
-					    recommender.addRating(userId1, movieId1, rating1);
+					    r.addRating(userId1, movieId1, rating1);
 					    
 						
 						
-						System.out.println(recommender.listOfUser);
+						System.out.println(r.listOfUser);
 						
-						System.out.print(recommender.listOfMovie.get(9).totalRating + "\n");
-						System.out.print(recommender.listOfMovie.get(9).countUser);
+					//	System.out.print(r.listOfMovie.get(9).totalRating + "\n");
+						//System.out.print(r.listOfMovie.get(9).countUser);
 						
 						//System.out.println(Movie.totalRatings);
 						   
@@ -207,18 +209,8 @@ public class Main {
 					case 8:	  
 						// getTopTenMovies()
 						break;
-					case 9:	 
-						/*for (Map.Entry<Long, User> entry : recommender.listOfUser.entrySet()) {
-					    Long key = entry.getKey();
-					    User value = entry.getValue();
-					    System.out.println("User ID " + key + " : " + value);}*/
-						// load()
-
-						break;
-					case 10:
-						//write();
-						break;
-
+					
+					
 					default:    System.out.println("Invalid option entered: " + option);
 					mainMenu();
 					break;
@@ -233,6 +225,7 @@ public class Main {
 					//the user chose option 0, so exit the program
 				}
 				System.out.println("Exiting... bye");
+				rAPI.store();
 				System.exit(0);
 
 			}
@@ -245,7 +238,7 @@ public class Main {
 
 
 
-		//recommenderAPI.store();
+		
 	}
 
 
@@ -268,8 +261,7 @@ public class Main {
 		System.out.println("5) Get User Ratings for a Movie");
 		System.out.println("6) Get Recommendations");
 		System.out.println("7) List Top Ten Movies");
-		System.out.println("8) Save to Datastore.xml");
-		System.out.println("9) Load from Datastore.xml");
+		
 		System.out.println("0) Exit");
 		System.out.print("==>>");
 		int option = input.nextInt();
