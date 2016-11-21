@@ -37,6 +37,7 @@ public class RecommenderAPI {
 	public  RecommenderAPI(Serializer serializer)throws Exception {
 
 		this.serializer = serializer; 
+		//loadDefaultFiles();
 	}
 
 
@@ -64,7 +65,13 @@ public class RecommenderAPI {
 		
 	}
 
-	public RecommenderAPI() throws Exception{
+	/*public RecommenderAPI() throws Exception{
+		loadDefaultFiles();
+           
+	}*/
+	
+	public void loadDefaultFiles() throws FileNotFoundException{
+		
 		File usersFile = new File("../Movie/lib/users5.dat");
 		Scanner inUsers = new Scanner(usersFile);
 		String delims = "[ | ]";//each field in the file is separated(delimited) by a space.
@@ -158,6 +165,7 @@ public class RecommenderAPI {
 			{
 			        if ((listOfRating.get(i).getUserId()).equals(j)){
 					listOfUser.get(j).userRating.put((listOfRating.get(i).getMovieId()), listOfRating.get(i).getRating());	
+					
                 }
 				}
 		}
@@ -181,8 +189,9 @@ public class RecommenderAPI {
 		 }
 			
 	}   
-           
-			
+		
+		
+					
           
          //////////////////////METHODS/////////////////
         	   
@@ -217,6 +226,7 @@ public class RecommenderAPI {
 
 
 public Rating addRating(Long userID, Long movieID, Float rating){
+	
 	listOfUser.get(userID).userRating.put(movieID, rating);
 	listOfMovie.get(movieID).movieRating.put((userID), rating);
 	listOfMovie.get(movieID).addTotalRating(rating);

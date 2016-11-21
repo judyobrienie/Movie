@@ -10,7 +10,7 @@ import java.util.Map;
 public class User 
 {
   static int   counter = 1;
-  public static long  userId;
+  public  long  userId;
   public String firstName;
   public String lastName;
   public int age;
@@ -48,7 +48,7 @@ public class User
                               
   }
 
-public static long getUserId() {
+public  long getUserId() {
 	return userId;
 }
 

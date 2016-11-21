@@ -34,16 +34,17 @@ public class Main {
 
 		File  moviestore = new File("moviestore.xml");
 		Serializer serializer = new XMLSerializer(moviestore);
-		RecommenderAPI rAPI= new RecommenderAPI(serializer); 
+		RecommenderAPI r= new RecommenderAPI(serializer); 
 		if (moviestore.isFile())
 		{
-			rAPI.load();
+			r.load();
 		}
+		else r.loadDefaultFiles();
 		
 		
 		
 		//Used to Read in the initial FILES
-		RecommenderAPI r= new RecommenderAPI();
+		//RecommenderAPI r= new RecommenderAPI();
 		
 		System.out.println("Movie Database");
 		System.out.println("-----------------");
@@ -81,7 +82,7 @@ public class Main {
 						System.out.println("Please enter the Occupation: ");
 						String occupation = input.nextLine();
 						User user = new User (firstName, lastName, age, gender, occupation);
-						Long userId = User.getUserId();
+						Long userId = user.getUserId();
 						r.addUser(userId, user);
 						
 						 Iterator<Long> iterator2 = r.listOfUser.keySet().iterator();
@@ -181,14 +182,14 @@ public class Main {
 					    Long userId1 = input.nextLong();
 					    System.out.println("Enter Your Rating between -5 being bad and 5 being excellent");
 					    Float rating1 = input.nextFloat();
-					    Rating rating = new Rating(userId1, movieId1, rating1);
+					   // Rating rating = new Rating(userId1, movieId1, rating1);
 					    r.addRating(userId1, movieId1, rating1);
 					    
 						
 						
 						System.out.println(r.listOfUser);
 						
-					//	System.out.print(r.listOfMovie.get(9).totalRating + "\n");
+						//System.out.print(r.listOfMovie.get(9).totalRating  + "\n");
 						//System.out.print(r.listOfMovie.get(9).countUser);
 						
 						//System.out.println(Movie.totalRatings);
@@ -225,7 +226,7 @@ public class Main {
 					//the user chose option 0, so exit the program
 				}
 				System.out.println("Exiting... bye");
-				rAPI.store();
+				r.store();
 				System.exit(0);
 
 			}
