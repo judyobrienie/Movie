@@ -85,13 +85,7 @@ public class Main {
 						Long userId = user.getUserId();
 						r.addUser(userId, user);
 						
-						 Iterator<Long> iterator2 = r.listOfUser.keySet().iterator();
-						    while (iterator2.hasNext()) {
-						       Long key = iterator2.next();
-						      User value = r.listOfUser.get(key);
-
-						       System.out.println(key + " " + value);
-						    }
+						r.allUsers();
 						
 						break;
 					case 2:
@@ -99,40 +93,22 @@ public class Main {
 						System.out.println("Choose User to Remove");
 					    System.out.println("=====================");
 					 // iterate map 
-					    Iterator<Long> iterator = r.listOfUser.keySet().iterator();
-					    while (iterator.hasNext()) {
-					       Long key = iterator.next();
-					      User value = r.listOfUser.get(key);
-
-					       System.out.println(key + " " + value);
-					    }
+					    r.allUsers();
 					    
 						Long choice = input.nextLong();
 						System.out.println("You have removed" + " : "  + r.listOfUser.get(choice)+ "\n");
 						System.out.println("Remaining Users:     " + "\n");
 						r.removeUser(choice);
 						
-						 
-						 Iterator<Long> iterator1 = r.listOfUser.keySet().iterator();
-						    while (iterator1.hasNext()) {
-						       Long key = iterator1.next();
-						      User value = r.listOfUser.get(key);
-
-						       System.out.println(key + " " + value);
-						    }
+						r.allUsers();
 						
 						break;
 					case 3:
 						
 						System.out.println("\n" + "Current List Of Movies");
 						System.out.println("=======================");
-						Iterator<Long> iterator3 = r.listOfMovie.keySet().iterator();
-					    while (iterator3.hasNext()) {
-					      Long key = iterator3.next();
-					      Movie value = r.listOfMovie.get(key);
-
-					       System.out.println(key + " " + value);
-					    }
+						
+						r.allMovies();
 						
 						System.out.println("\n\n" +"Enter The Movie Name: ");
 						input.nextLine(); //swallow bug
@@ -155,13 +131,7 @@ public class Main {
 						System.out.println("\n" + "UpDated List Of Movies");
 						System.out.println("=======================");
 
-						Iterator<Long> iterator4 = r.listOfMovie.keySet().iterator();
-					    while (iterator4.hasNext()) {
-					      Long key = iterator4.next();
-					      Movie value = r.listOfMovie.get(key);
-
-					       System.out.println(key + " " + value);
-					    }
+						r.allMovies();
 						
 						break;
 					case 4:
@@ -169,14 +139,7 @@ public class Main {
 						
 						System.out.println("\n" + "Pick A Movie You Would Like To Rate");
 						System.out.println("=======================");
-						Iterator<Long> iterator5 = r.listOfMovie.keySet().iterator();
-					    while (iterator5.hasNext()) {
-					      Long key = iterator5.next();
-					      Movie value = r.listOfMovie.get(key);
-
-					       System.out.println(key + " " + value);
-					    }
-						
+						r.allMovies();
 					    Long movieId1 = input.nextLong();
 					    System.out.println("Enter Your User Id");
 					    Long userId1 = input.nextLong();
@@ -185,30 +148,37 @@ public class Main {
 					   // Rating rating = new Rating(userId1, movieId1, rating1);
 					    r.addRating(userId1, movieId1, rating1);
 					    
-						
-						
-						System.out.println(r.listOfUser);
-						
-						//System.out.print(r.listOfMovie.get(9).totalRating  + "\n");
-						//System.out.print(r.listOfMovie.get(9).countUser);
-						
-						//System.out.println(Movie.totalRatings);
-						   
-						   
-						
-						
 						break;
 					case 5:
-						//getMovie(movieID)
+						System.out.println("\n" + "Current List Of Movies");
+						System.out.println("=======================");
+						r.allMovies();
+					    System.out.println("\n");
+					    System.out.println("Choose a Movie to see its Ratings" + "\n");
+					    
+					    Long movieID = input.nextLong();
+					    r.getMovie(movieID);
+					    
 						break;
-					case 6: 
-						//getUserRatings(userID)
+					case 6:
+						System.out.println("\n" + "Current List Of Users");
+						System.out.println("=======================");
+						r.allUsers();
+					    System.out.println("\n");
+					    System.out.println("Choose a User to see their Ratings" + "\n");
+					    
+					    Long userID = input.nextLong();
+					    r.getUserRatings(userID);
+						
 						break;
 					case 7:
 						// getUserRecommendations(userID)
 						break;
 					case 8:	  
 						// getTopTenMovies()
+						break;
+					case 9:
+						r.allUsers();
 						break;
 					
 					
@@ -258,10 +228,13 @@ public class Main {
 		System.out.println("1) Add a New User");
 		System.out.println("2) Remove an Existing User");
 		System.out.println("3) Add a New Movie");
-		System.out.println("4) Add a Rating for a Move");
+		System.out.println("4) Add a Rating for a Movie");
 		System.out.println("5) Get User Ratings for a Movie");
-		System.out.println("6) Get Recommendations");
-		System.out.println("7) List Top Ten Movies");
+		System.out.println("6) List Ratings for a User");
+		System.out.println("7) Get Recommendations");
+		System.out.println("8) List Top Ten Movies");
+		System.out.println("9) List All Users");
+		
 		
 		System.out.println("0) Exit");
 		System.out.print("==>>");

@@ -5,12 +5,14 @@ import java.io.FileNotFoundException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
@@ -181,9 +183,6 @@ public class RecommenderAPI {
 				        if ((listOfRating.get(i).getMovieId()).equals(j)){
 						listOfMovie.get(j).movieRating.put((listOfRating.get(i).getUserId()), listOfRating.get(i).getRating());	
 						
-						//sum of total rating per movie
-						listOfMovie.get(j).addTotalRating(listOfRating.get(i).getRating());
-						
 	                }
 				}
 		 }
@@ -195,10 +194,25 @@ public class RecommenderAPI {
           
          //////////////////////METHODS/////////////////
         	   
+	public void allUsers(){
+	Iterator<Long> iterator = listOfUser.keySet().iterator();
+    while (iterator.hasNext()) {
+       Long key = iterator.next();
+      User value = listOfUser.get(key);
 
+       System.out.println(key + " " + value);
+    }
+	}
 	
+	public void allMovies(){
+	Iterator<Long> iterator = listOfMovie.keySet().iterator();
+    while (iterator.hasNext()) {
+      Long key = iterator.next();
+      Movie value = listOfMovie.get(key);
 
-
+       System.out.println(key + " " + value);
+    }
+	}
 
 
 
@@ -229,15 +243,39 @@ public Rating addRating(Long userID, Long movieID, Float rating){
 	
 	listOfUser.get(userID).userRating.put(movieID, rating);
 	listOfMovie.get(movieID).movieRating.put((userID), rating);
-	listOfMovie.get(movieID).addTotalRating(rating);
-	
 	System.out.println("User : " + userID + " has added a rating of : " + rating +" to the Movie No :" + movieID + "\n");
-	
-	
 	return null;
-
-
-
 }
+
+	
+	public void getMovie(Long movieID){
+		System.out.println("User ID and Rating Amount" + "\n");
+		System.out.println(listOfMovie.get(movieID).movieRating);
+        float rating = 0;
+        float averageRating = 0;
+        int count = 0;
+        for (Float r : listOfMovie.get(movieID).movieRating.values()) {
+            rating += r;
+            count ++;
+        }
+        averageRating = rating/count;
+			
+		System.out.println("Total Rating :" + rating);
+		System.out.println("Average Rating: " + averageRating);
+		
+	}  
+	
+	public void getUserRatings(Long userID){
+		System.out.println("Movie ID and Rating Amount" + "\n");
+		System.out.println(listOfUser.get(userID).userRating);
+		int count = 0;
+        for (Float r : listOfUser.get(userID).userRating.values()) {
+            count ++;
+        }
+        
+		System.out.println("Total Movies Rated by " + listOfUser.get(userID).firstName + " is " + count );
+	}
+	
 }
+
 
