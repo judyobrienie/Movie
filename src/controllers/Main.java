@@ -40,7 +40,7 @@ public class Main {
 			r.load();
 		}
 		else r.loadDefaultFiles();
-		
+	
 		
 		
 		//Used to Read in the initial FILES
@@ -81,9 +81,8 @@ public class Main {
 						String gender = input.nextLine();
 						System.out.println("Please enter the Occupation: ");
 						String occupation = input.nextLine();
-						User user = new User (firstName, lastName, age, gender, occupation);
-						Long userId = user.getUserId();
-						r.addUser(userId, user);
+				
+						r.addUser(firstName, lastName, age, gender, occupation);
 						
 						r.allUsers();
 						
@@ -122,11 +121,8 @@ public class Main {
 						Set<Genre>genre = new HashSet<>();
 						int genreId = input.nextInt();
 						genre.add(Genre.fromId(genreId));
-						Movie movie = new Movie(title, releaseDate, imDbUrl, genre);
-						long movieId = movie.getMovieId();
 						
-						
-						r.addMovie(movieId, movie);
+						r.addMovie(title, releaseDate, imDbUrl, genre);
 						
 						System.out.println("\n" + "UpDated List Of Movies");
 						System.out.println("=======================");
@@ -174,8 +170,10 @@ public class Main {
 					case 7:
 						// getUserRecommendations(userID)
 						break;
-					case 8:	  
-						// getTopTenMovies()
+					case 8:	
+						System.out.println("List Of Top 10 Rated Movies");
+						System.out.println("=======================");
+						r.getTopTenMovies();
 						break;
 					case 9:
 						r.allUsers();

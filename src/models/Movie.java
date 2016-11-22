@@ -14,17 +14,19 @@ import java.util.Set;
 public class Movie {
 
 
-  static int  counter = 1;
+  public static int  counter = 1;
   public long   movieId;
   public String title;
   public String releaseDate;
   public String imDbUrl;
   public Set<Genre>genre;
   public float totalRating = 0;
-  public int countUser= 0;
+  public int count = 0;
+  public Float averageRating = (float) 0;
   
   public  Map<Long, Float> movieRating = new HashMap<>();
- 
+  public List<Movie> movieByRating = new ArrayList<Movie>();
+
   
   public Movie(){
 	  
@@ -46,15 +48,16 @@ public String toString() {
 	return  "  :   "+ title +  "      " + releaseDate + "     " + imDbUrl + "     " +  genre + "\n" + movieRating;
 }*/
 
-
+@Override
 public String toString()
 {
   return toStringHelper(this).addValue(title)
-  							.addValue(releaseDate)
-  							.addValue(imDbUrl)
+  							//.addValue(releaseDate)
+  							//.addValue(imDbUrl)
   							.addValue(genre) 
   							.addValue(movieRating)
   							.addValue(totalRating)
+  							.addValue(averageRating)
   							.toString();
 }
 
@@ -63,10 +66,10 @@ public String toString()
 
 
 
-public void addTotalRating(Float rating){
+public void averageRating(){
 	
-	totalRating = rating + totalRating;
-	countUser++;
+averageRating = totalRating/count; 
+	
 }
 
 
@@ -77,6 +80,14 @@ public void addTotalRating(Float rating){
 
 
 
+
+public Float getAverageRating() {
+	return averageRating;
+}
+
+public void setAverageRating(Float averageRating) {
+	this.averageRating = averageRating;
+}
 
 public  long getMovieId() {
 	return movieId;

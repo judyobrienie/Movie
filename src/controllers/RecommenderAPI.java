@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -16,6 +18,8 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
+
+import com.google.common.base.MoreObjects;
 
 import models.Genre;
 import models.Movie;
@@ -33,13 +37,14 @@ public class RecommenderAPI {
 	Map<Long, Movie>  listOfMovie= new HashMap<>();
 	List<Rating> listOfRating= new ArrayList<>();
 	Map<Long, Float> movieRating = new HashMap<>();
+	List<Movie> sortingMovie = new ArrayList<>();
 
 
 
 	public  RecommenderAPI(Serializer serializer)throws Exception {
 
 		this.serializer = serializer; 
-		//loadDefaultFiles();
+
 	}
 
 
@@ -50,6 +55,7 @@ public class RecommenderAPI {
 		listOfUser = (Map<Long, User>) serializer.pop();
 	    listOfMovie  = (Map<Long, Movie>)   serializer.pop();
 		listOfRating = (List<Rating>)  serializer.pop();
+		sortingMovie = (List<Movie> ) serializer.pop();
 	}
 
 
@@ -58,7 +64,7 @@ public class RecommenderAPI {
 	void store() throws Exception
 	{
 
-		
+		serializer.push(sortingMovie);
 		serializer.push(listOfRating);
 	    serializer.push(listOfMovie);
 		serializer.push(listOfUser);
@@ -67,12 +73,8 @@ public class RecommenderAPI {
 		
 	}
 
-	/*public RecommenderAPI() throws Exception{
-		loadDefaultFiles();
-           
-	}*/
 	
-	public void loadDefaultFiles() throws FileNotFoundException{
+public void loadDefaultFiles() throws FileNotFoundException{
 		
 		File usersFile = new File("../Movie/lib/users5.dat");
 		Scanner inUsers = new Scanner(usersFile);
@@ -118,10 +120,8 @@ public class RecommenderAPI {
 			/*Iterator<Genre> iterator = genres.iterator(); 
 		       System.out.println("space");
 			   while (iterator.hasNext()){
-
 			   System.out.println("Value: "+iterator.next() + " ");  
 			   }/*
-
 			//date
 			/*DateFormat df = new SimpleDateFormat("yyyyMMdd");
 			//String moviedate = (movieTokens[2]))
@@ -130,6 +130,7 @@ public class RecommenderAPI {
 			Movie movie = new Movie(movieTokens[1], movieTokens[2], movieTokens[3], genres);
 
 			listOfMovie.put(movie.getMovieId(), movie);
+			sortingMovie.add(movie);
 
 
 		}
@@ -175,6 +176,7 @@ public class RecommenderAPI {
 		/**
 		 * Adding Ratings to Individual Movie
 		 */
+		listOfRating.sort(Comparator.comparing(Rating :: getUserId));
 		 for(int i = 0; i < listOfRating.size(); i++){
 				
 				
@@ -188,7 +190,6 @@ public class RecommenderAPI {
 		 }
 			
 	}   
-		
 		
 					
           
@@ -209,15 +210,21 @@ public class RecommenderAPI {
     while (iterator.hasNext()) {
       Long key = iterator.next();
       Movie value = listOfMovie.get(key);
-
+    
        System.out.println(key + " " + value);
     }
 	}
 
 
 
-	public User addUser(Long userId, User user) {
-
+	public User addUser(String firstName, String lastName, int age, String gender, String occupation) {
+        long userId = 1;
+        User user = new User (firstName, lastName, age, gender, occupation);
+		for(Long j= (long) 1; j < listOfUser.size()+1 ; j++)
+		{
+		       	userId ++;
+				
+            }
 		listOfUser.put(userId, user);
 		System.out.println("New User ID = " +  userId + " :" + user + " Has Been Added to List Below"+ "\n\n" );
 		return user;
@@ -231,8 +238,17 @@ public class RecommenderAPI {
 	}
 
 
-	public Movie addMovie(Long movieId, Movie movie){
+	public Movie addMovie(String title, String releaseDate, String imDbUrl, Set<Genre>genre){
+		long movieId = 1;
+		Movie movie = new Movie(title, releaseDate, imDbUrl, genre);
+		for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
+		{
+		       	movieId ++;
+				
+            }
+		
 		listOfMovie.put(movieId, movie);
+		sortingMovie.add(movie);
 		System.out.println("New Movie = " +  movieId + " :" + movie + " Has Been Added to List Below"+ "\n\n" );
 		return movie;
 
@@ -244,26 +260,60 @@ public Rating addRating(Long userID, Long movieID, Float rating){
 	listOfUser.get(userID).userRating.put(movieID, rating);
 	listOfMovie.get(movieID).movieRating.put((userID), rating);
 	System.out.println("User : " + userID + " has added a rating of : " + rating +" to the Movie No :" + movieID + "\n");
+	listOfRating.sort(Comparator.comparing(Rating :: getUserId));
+	
 	return null;
 }
 
-	
-	public void getMovie(Long movieID){
-		System.out.println("User ID and Rating Amount" + "\n");
-		System.out.println(listOfMovie.get(movieID).movieRating);
-        float rating = 0;
-        float averageRating = 0;
-        int count = 0;
-        for (Float r : listOfMovie.get(movieID).movieRating.values()) {
-            rating += r;
-            count ++;
-        }
-        averageRating = rating/count;
-			
-		System.out.println("Total Rating :" + rating);
-		System.out.println("Average Rating: " + averageRating);
+public void getMovie(Long movieID){
+	System.out.println("User ID and Rating Amount" + "\n");
+	System.out.println(listOfMovie.get(movieID).movieRating);
+    float rating = 0;
+    float averageRating = 0;
+    int count = 0;
+    for (Float r : listOfMovie.get(movieID).movieRating.values()) {
+        rating += r;
+        count ++;
+    }
+    averageRating = rating/count;
 		
-	}  
+	System.out.println("Total Rating :" + rating);
+	System.out.println("Average Rating: " + averageRating);
+	
+}   
+	
+	public void getTopTenMovies(){
+	      
+		
+	     for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
+			{
+		        for (Float r : listOfMovie.get(j).movieRating.values())
+		        {
+		           listOfMovie.get(j).totalRating += r;
+		           listOfMovie.get(j).count ++; 
+		           listOfMovie.get(j).averageRating();
+				}    
+			}
+		    //// sorting list based on average rating
+		   sortingMovie.sort(Comparator.comparing(Movie :: getAverageRating));
+		   Collections.reverse(sortingMovie);
+		    
+		    int index=1;
+		    System.out.println("List Of Top 10 Movies in Decending Order Based On Average Rating" + "\n\n");
+		    for(Movie movie : sortingMovie.subList(0, 10)){
+		    System.out.println(String.valueOf(index++)+": "+ movie);
+		    }
+			
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	public void getUserRatings(Long userID){
 		System.out.println("Movie ID and Rating Amount" + "\n");
@@ -276,6 +326,7 @@ public Rating addRating(Long userID, Long movieID, Float rating){
 		System.out.println("Total Movies Rated by " + listOfUser.get(userID).firstName + " is " + count );
 	}
 	
-}
-
-
+	
+	
+	
+}//end of api

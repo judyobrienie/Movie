@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class User 
 {
-  static int   counter = 1;
+  public int   counter = 1;
   public  long  userId;
   public String firstName;
   public String lastName;
