@@ -5,11 +5,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 
 public class User 
 {
-  public int   counter = 1;
+  public static int   counter = 1;
   public  long  userId;
   public String firstName;
   public String lastName;
@@ -20,7 +22,7 @@ public class User
   public String password;
   
   
-  public Map<Long, Float> userRating = new HashMap<>();
+  public Map<Long, Float> userRating = new TreeMap<>();
   
   public User()
   {
@@ -43,7 +45,7 @@ public class User
     							.addValue(age)
     							.addValue(gender)
     							.addValue(occupation)  
-    							.addValue(userRating)
+    							//.addValue(userRating)
     							.toString();
                               
   }
@@ -117,12 +119,12 @@ public int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + age;
+	result = prime * result + counter;
 	result = prime * result + ((email == null) ? 0 : email.hashCode());
 	result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
 	result = prime * result + ((gender == null) ? 0 : gender.hashCode());
 	result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
 	result = prime * result + ((occupation == null) ? 0 : occupation.hashCode());
-	result = prime * result + ((password == null) ? 0 : password.hashCode());
 	result = prime * result + (int) (userId ^ (userId >>> 32));
 	return result;
 }
@@ -137,6 +139,8 @@ public boolean equals(Object obj) {
 		return false;
 	User other = (User) obj;
 	if (age != other.age)
+		return false;
+	if (counter != other.counter)
 		return false;
 	if (email == null) {
 		if (other.email != null)
@@ -163,14 +167,12 @@ public boolean equals(Object obj) {
 			return false;
 	} else if (!occupation.equals(other.occupation))
 		return false;
-	if (password == null) {
-		if (other.password != null)
-			return false;
-	} else if (!password.equals(other.password))
-		return false;
 	if (userId != other.userId)
 		return false;
 	return true;
+}
+
+
 }
 
   
@@ -188,6 +190,6 @@ public boolean equals(Object obj) {
   
   
   
-}
+
 
   

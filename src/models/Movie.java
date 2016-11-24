@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class Movie {
 
@@ -24,7 +26,7 @@ public class Movie {
   public int count = 0;
   public Float averageRating = (float) 0;
   
-  public  Map<Long, Float> movieRating = new HashMap<>();
+  public  Map<Long, Float> movieRating = new TreeMap<>();
   public List<Movie> movieByRating = new ArrayList<Movie>();
 
   

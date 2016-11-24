@@ -2,17 +2,15 @@ package models;
 
 
 
-public class Rating {
+public class Rating implements Comparable<Rating> {
 	
 	public Long userId;
 	public Long movieId;
 	public Float  rating;
-	@Override
-	public String toString() {
-		return "Rating [userId=" + userId + ", movieId=" + movieId + ", rating=" + rating + "]";
-	}
+	
 
-
+	 public Rating(){
+	 }
 	 
 	  
 
@@ -25,7 +23,16 @@ public class Rating {
 	  }
 
 
+	
+	@Override
+	public String toString() {
+		return "Rating [userId=" + userId + ", movieId=" + movieId + ", rating=" + rating + "]";
+	}
 
+	@Override
+	public int compareTo(Rating that) {
+	return (int) (this.rating-that.rating);
+	}
 
 
 	public Long getUserId() {

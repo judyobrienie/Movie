@@ -30,8 +30,6 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 
-
-
 		File  moviestore = new File("moviestore.xml");
 		Serializer serializer = new XMLSerializer(moviestore);
 		RecommenderAPI r= new RecommenderAPI(serializer); 
@@ -40,7 +38,8 @@ public class Main {
 			r.load();
 		}
 		else r.loadDefaultFiles();
-	
+
+		
 		
 		
 		//Used to Read in the initial FILES
