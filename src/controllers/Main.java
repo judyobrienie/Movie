@@ -167,7 +167,10 @@ public class Main {
 						
 						break;
 					case 7:
-						// getUserRecommendations(userID)
+						System.out.println("\n\n" +"Choose The User requiring recommendation: ");
+						r.allUsers();
+						Long userId = input.nextLong(); 
+						r.getUserRecommendations(userId);
 						break;
 					case 8:	
 						System.out.println("List Of Top 10 Rated Movies");
@@ -206,6 +209,17 @@ public class Main {
 
 
 
+		
+	}
+
+
+
+
+
+
+
+	private static void getUserRecommendations(Long userId) {
+		// TODO Auto-generated method stub
 		
 	}
 

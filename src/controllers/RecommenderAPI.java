@@ -38,6 +38,7 @@ public class RecommenderAPI {
 	List<Rating> listOfRating= new ArrayList<>();
 	Map<Long, Float> movieRating = new HashMap<>();
 	List<Movie> sortingMovie = new ArrayList<>();
+	Set<String> userMovie = new HashSet<String>();
 
 
 
@@ -239,6 +240,7 @@ public void loadDefaultFiles() throws FileNotFoundException{
 
 
 	public Movie addMovie(String title, String releaseDate, String imDbUrl, Set<Genre>genre){
+		List<Movie> sortingMovie = new ArrayList<>();
 		long movieId = 1;
 		Movie movie = new Movie(title, releaseDate, imDbUrl, genre);
 		for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
@@ -283,7 +285,6 @@ public void getMovie(Long movieID){
 }   
 	
 	public void getTopTenMovies(){
-	      
 		
 	     for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
 			{
@@ -311,10 +312,6 @@ public void getMovie(Long movieID){
 	
 	
 	
-	
-	
-	
-	
 	public void getUserRatings(Long userID){
 		System.out.println("Movie ID and Rating Amount" + "\n");
 		System.out.println(listOfUser.get(userID).userRating);
@@ -327,6 +324,19 @@ public void getMovie(Long movieID){
 	}
 	
 	
+	public void getUserRecommendations(Long userID){
+		 for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
+			{
+		        for (long i = 1; i < listOfMovie.get(j).movieRating.size()+1; i++){
+		        	
+		        	if(!listOfMovie.get(j).movieRating.containsKey(userID)){
+		        		 userMovie.add(listOfMovie.get(j).getTitle());
+		        	}
+		        }
+		        
+			}
+		 System.out.println(userMovie);
+	}
 	
 	
 }//end of api

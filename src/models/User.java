@@ -45,7 +45,7 @@ public class User
     							.addValue(age)
     							.addValue(gender)
     							.addValue(occupation)  
-    							//.addValue(userRating)
+    							.addValue(userRating)
     							.toString();
                               
   }
