@@ -34,11 +34,11 @@ public class RecommenderAPI {
 	private Serializer serializer;
 
 
-	Map<Long,User> listOfUser = new HashMap<>();
-	Map<Long, Movie>  listOfMovie= new HashMap<>();
-	List<Rating> listOfRating= new ArrayList<>();
-	Map<Long, Float> movieRating = new TreeMap<>();
-	Map<Long, Float> userRating = new TreeMap<>();
+	public Map<Long,User> listOfUser = new HashMap<>();
+	public Map<Long, Movie>  listOfMovie= new HashMap<>();
+	public List<Rating> listOfRating= new ArrayList<>();
+	public Map<Long, Float> movieRating = new TreeMap<>();
+	public Map<Long, Float> userRating = new TreeMap<>();
 	public List<Movie> sortingMovie = new ArrayList<>();
 	
 
@@ -70,7 +70,7 @@ public class RecommenderAPI {
 
 
 
-	void store() throws Exception
+	public void store() throws Exception
 	{
 		
 		serializer.push(listOfRating);
@@ -324,6 +324,10 @@ public List<Movie> getTopTenMovies(){
 			
 		}
 			
+		public int getUsers(){
+			return getUsers();
+		}
+		
 		public int getNumberOfMovies(){
 			return listOfMovie.size();
 		}
