@@ -1,4 +1,4 @@
-package models;
+package controllers;
 
 
 import static org.junit.Assert.*;
@@ -16,6 +16,9 @@ import org.junit.Test;
 import static models.Fixtures.users;
 import static models.Fixtures.movies;
 import static models.Fixtures.ratings;
+
+import models.Movie;
+import models.Rating;
 import models.User;
 
 import controllers.RecommenderAPI;

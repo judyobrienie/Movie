@@ -1,4 +1,4 @@
-package models;
+package controllers;
 
 
 import static org.junit.Assert.*;
@@ -12,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controllers.RecommenderAPI;
+import models.Genre;
 
 
 public class RecommenderAPITest {
