@@ -1,24 +1,11 @@
 package controllers;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.io.ObjectOutputStream;
 import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Scanner;
 import java.util.Set;
 
-import com.google.common.base.Optional;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
 import models.Genre;
-import models.Movie;
-import models.Rating;
-import models.User;
-
 import utils.Serializer;
 import utils.XMLSerializer;
 

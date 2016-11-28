@@ -39,7 +39,7 @@ public class RecommenderAPI {
 	List<Rating> listOfRating= new ArrayList<>();
 	Map<Long, Float> movieRating = new TreeMap<>();
 	Map<Long, Float> userRating = new TreeMap<>();
-	List<Movie> sortingMovie = new ArrayList<>();
+	public List<Movie> sortingMovie = new ArrayList<>();
 	
 
 
@@ -48,6 +48,11 @@ public class RecommenderAPI {
 
 		this.serializer = serializer; 
 
+	}
+
+
+	public RecommenderAPI() {
+		
 	}
 
 
@@ -243,7 +248,6 @@ public void loadDefaultFiles() throws FileNotFoundException{
 
 
 	public Movie addMovie(String title, String releaseDate, String imDbUrl, Set<Genre>genre){
-		List<Movie> sortingMovie = new ArrayList<>();
 		long movieId = 1;
 		Movie movie = new Movie(title, releaseDate, imDbUrl, genre);
 		for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
@@ -287,7 +291,7 @@ public void getMovie(Long movieID){
 	
 }   
 	
-public void getTopTenMovies(){
+public List<Movie> getTopTenMovies(){
 	
     for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
 		{
@@ -306,13 +310,27 @@ public void getTopTenMovies(){
 	    int index=1;
 	    System.out.println("List Of Top 10 Movies in Decending Order Based On Average Rating" + "\n\n");
 	    for(Movie movie : sortingMovie.subList(0, 10)){
+	    	
 	    System.out.println(String.valueOf(index++)+": "+ movie);
 	    }
+	    sortingMovie = sortingMovie.subList(0,10);
+	    return sortingMovie;
 		
 	
 }
 	
+		public int getNumberOfUsers(){
+			return listOfUser.size();
+			
+		}
+			
+		public int getNumberOfMovies(){
+			return listOfMovie.size();
+		}
+
+
 	
+
 	public void getUserRatings(Long userID){
 		System.out.println("Movie ID and Rating Amount" + "\n");
 		System.out.println(listOfUser.get(userID).userRating);
