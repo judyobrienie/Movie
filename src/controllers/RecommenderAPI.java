@@ -18,6 +18,7 @@ import java.util.Map.Entry;
 import java.util.Optional;
 import java.util.Scanner;
 import java.util.Set;
+import java.util.TreeMap;
 
 import com.google.common.base.MoreObjects;
 
@@ -36,9 +37,10 @@ public class RecommenderAPI {
 	Map<Long,User> listOfUser = new HashMap<>();
 	Map<Long, Movie>  listOfMovie= new HashMap<>();
 	List<Rating> listOfRating= new ArrayList<>();
-	Map<Long, Float> movieRating = new HashMap<>();
+	Map<Long, Float> movieRating = new TreeMap<>();
+	Map<Long, Float> userRating = new TreeMap<>();
 	List<Movie> sortingMovie = new ArrayList<>();
-	Set<String> userMovie = new HashSet<String>();
+	
 
 
 
@@ -53,10 +55,11 @@ public class RecommenderAPI {
 	public void load() throws Exception
 	{
 		serializer.read();
+		sortingMovie = (List<Movie>) serializer.pop();
 		listOfUser = (Map<Long, User>) serializer.pop();
 	    listOfMovie  = (Map<Long, Movie>)   serializer.pop();
 		listOfRating = (List<Rating>)  serializer.pop();
-		sortingMovie = (List<Movie> ) serializer.pop();
+		
 	}
 
 
@@ -64,11 +67,11 @@ public class RecommenderAPI {
 
 	void store() throws Exception
 	{
-
-		serializer.push(sortingMovie);
+		
 		serializer.push(listOfRating);
 	    serializer.push(listOfMovie);
 		serializer.push(listOfUser);
+		serializer.push(sortingMovie);
 		serializer.write(); 
 		
 		
@@ -284,32 +287,30 @@ public void getMovie(Long movieID){
 	
 }   
 	
-	public void getTopTenMovies(){
+public void getTopTenMovies(){
+	
+    for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
+		{
+	        for (Float r : listOfMovie.get(j).movieRating.values())
+	        {
+	           listOfMovie.get(j).totalRating += r;
+	           listOfMovie.get(j).count ++; 
+	           listOfMovie.get(j).averageRating();
+			}    
+		}
+	    //// sorting list based on average rating
+	   sortingMovie.sort(Comparator.comparing(Movie :: getAverageRating));
+	   Collections.reverse(sortingMovie);
+	   
+	    
+	    int index=1;
+	    System.out.println("List Of Top 10 Movies in Decending Order Based On Average Rating" + "\n\n");
+	    for(Movie movie : sortingMovie.subList(0, 10)){
+	    System.out.println(String.valueOf(index++)+": "+ movie);
+	    }
 		
-	     for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
-			{
-		        for (Float r : listOfMovie.get(j).movieRating.values())
-		        {
-		           listOfMovie.get(j).totalRating += r;
-		           listOfMovie.get(j).count ++; 
-		           listOfMovie.get(j).averageRating();
-				}    
-			}
-		    //// sorting list based on average rating
-		   sortingMovie.sort(Comparator.comparing(Movie :: getAverageRating));
-		   Collections.reverse(sortingMovie);
-		    
-		    int index=1;
-		    System.out.println("List Of Top 10 Movies in Decending Order Based On Average Rating" + "\n\n");
-		    for(Movie movie : sortingMovie.subList(0, 10)){
-		    System.out.println(String.valueOf(index++)+": "+ movie);
-		    }
-			
-		
-	}
 	
-	
-	
+}
 	
 	
 	public void getUserRatings(Long userID){
@@ -325,18 +326,37 @@ public void getMovie(Long movieID){
 	
 	
 	public void getUserRecommendations(Long userID){
+		Set<Movie> userMovie = new HashSet<Movie>();
+		
 		 for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
 			{
 		        for (long i = 1; i < listOfMovie.get(j).movieRating.size()+1; i++){
 		        	
 		        	if(!listOfMovie.get(j).movieRating.containsKey(userID)){
-		        		 userMovie.add(listOfMovie.get(j).getTitle());
+		        		 userMovie.add(listOfMovie.get(j));
 		        	}
 		        }
 		        
 			}
-		 System.out.println(userMovie);
+		 List<Movie> topFiveMovie = new ArrayList<>(userMovie);
+		 for(int j=  0; j < topFiveMovie.size() ; j++)
+			{
+		        for (Float r : topFiveMovie.get(j) .movieRating.values())
+		        {
+		           topFiveMovie.get(j).totalRating += r;
+		           topFiveMovie.get(j).count ++; 
+		           topFiveMovie.get(j).averageRating();
+				}    
+			}
+		 topFiveMovie.sort(Comparator.comparing(Movie :: getAverageRating));
+		   Collections.reverse(topFiveMovie);
+		   int index=1;
+		    System.out.println("Recommended List Of Top Movies in Decending Order Based On Average Rating" + "\n\n");
+		    for(Movie movie : topFiveMovie){
+		    System.out.println(String.valueOf(index++)+": "+ movie);
+		
+		 //System.out.println(topFiveMovie);
 	}
-	
+	}
 	
 }//end of api
