@@ -22,6 +22,7 @@ import java.util.TreeMap;
 
 import com.google.common.base.MoreObjects;
 
+
 import models.Genre;
 import models.Movie;
 import models.Rating;
@@ -264,14 +265,14 @@ public void loadDefaultFiles() throws FileNotFoundException{
 	}
 
 
-public Rating addRating(Long userID, Long movieID, Float rating){
+public List<Rating> addRating(Long userID, Long movieID, Float rating){
 	
 	listOfUser.get(userID).userRating.put(movieID, rating);
 	listOfMovie.get(movieID).movieRating.put((userID), rating);
 	System.out.println("User : " + userID + " has added a rating of : " + rating +" to the Movie No :" + movieID + "\n");
 	listOfRating.sort(Comparator.comparing(Rating :: getUserId));
 	
-	return null;
+	return listOfRating;
 }
 
 public void getMovie(Long movieID){
@@ -347,7 +348,7 @@ public List<Movie> getTopTenMovies(){
 	}
 	
 	
-	public void getUserRecommendations(Long userID){
+	public int getUserRecommendations(Long userID){
 		Set<Movie> userMovie = new HashSet<Movie>();
 		
 		 for(Long j= (long) 1; j < listOfMovie.size()+1 ; j++)
@@ -372,13 +373,17 @@ public List<Movie> getTopTenMovies(){
 			}
 		 topFiveMovie.sort(Comparator.comparing(Movie :: getAverageRating));
 		   Collections.reverse(topFiveMovie);
+		  
 		   int index=1;
 		    System.out.println("Recommended List Of Top Movies in Decending Order Based On Average Rating" + "\n\n");
-		    for(Movie movie : topFiveMovie){
+		    for(Movie movie : topFiveMovie.subList(0, 5)){
+		    	
 		    System.out.println(String.valueOf(index++)+": "+ movie);
-		
+		    	
 		 //System.out.println(topFiveMovie);
 	}
+		    return topFiveMovie.size();
+			
 	}
 	
 }//end of api

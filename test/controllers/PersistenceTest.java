@@ -58,7 +58,7 @@ public class PersistenceTest {
 	    populate (recommender);
 	    
 	    assertEquals(users.length, recommender.getNumberOfUsers());
-	    assertEquals(4, recommender.sortingMovie.size());   
+	    assertEquals(11, recommender.sortingMovie.size());   
 	  }
 	
 	 void deleteFile(String fileName)

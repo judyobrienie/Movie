@@ -1,18 +1,22 @@
 package controllers;
 
 
+import static models.Fixtures.ratings;
 import static org.junit.Assert.*;
 
 
 import java.util.HashSet;
 import java.util.Set;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import controllers.RecommenderAPI;
 import models.Genre;
+import models.Movie;
+import models.Rating;
 
 
 public class RecommenderAPITest {
@@ -40,6 +44,13 @@ public class RecommenderAPITest {
 		test.addMovie("Inside Out", "2014", "test.com", genre);
 		test.addMovie("Shrek", "2010", "test.com", genre);
 		test.addMovie("Big", "1982", "test.com", genre);
+		 
+		for(Rating rating: ratings)
+		    {
+		    	test.addRating(rating.userId, rating.movieId, rating.rating);
+		    }
+		    
+		    
 		}
 	
 
@@ -62,9 +73,23 @@ public class RecommenderAPITest {
     public void testGetTopTenMovies(){
 		assertEquals(10, test.getTopTenMovies().size()) ;
 		
-		
 	}
 	
+	@Test
+	public void testAddRating(){
+		
+		assertEquals(1,test.listOfMovie.get(1l).movieRating.size());
+		assertEquals(2,test.listOfMovie.get(2l).movieRating.size());
+	}
+	
+	
+	@Test
+	public void testGetUserRecommendation(){
+		
+		assertEquals(1, test.getUserRecommendations(1l));
+	}
+
+
 	
 	@After
 	public void tearDown() throws Exception {

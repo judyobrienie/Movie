@@ -57,9 +57,9 @@ public String toString()
   							//.addValue(releaseDate)
   							//.addValue(imDbUrl)
   							.addValue(genre) 
-  							.addValue(movieRating)
-  							.addValue(totalRating)
-  							.addValue(averageRating)
+  							//.addValue(movieRating)
+  							//.addValue(totalRating)
+  							//.addValue(averageRating)
   							.toString();
 }
 
