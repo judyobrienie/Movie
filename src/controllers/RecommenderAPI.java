@@ -86,7 +86,7 @@ public class RecommenderAPI {
 	
 public void loadDefaultFiles() throws FileNotFoundException{
 		
-		File usersFile = new File("../Movie/lib/users5.dat");
+		File usersFile = new File("../Movie/lib/users.dat");
 		Scanner inUsers = new Scanner(usersFile);
 		String delims = "[ | ]";//each field in the file is separated(delimited) by a space.
 		while (inUsers.hasNextLine()) {
@@ -105,7 +105,7 @@ public void loadDefaultFiles() throws FileNotFoundException{
 		inUsers.close();
 
 
-		File moviesFile = new File("../Movie/lib/items5.dat");
+		File moviesFile = new File("../Movie/lib/items.dat");
 		Scanner inMovies = new Scanner(moviesFile);
 		String delims1 = "[|]";//each field in the file is separated(delimited) by a space.
 		while (inMovies.hasNextLine()) {
@@ -148,7 +148,7 @@ public void loadDefaultFiles() throws FileNotFoundException{
 
 
 
-		File ratingsFile = new File("../Movie/lib/ratings5.dat");
+		File ratingsFile = new File("../Movie/lib/ratings.dat");
 		Scanner inRatings = new Scanner(ratingsFile);
 		String delims2 = "[ | ]";//each field in the file is separated(delimited) by a space.
 
@@ -373,16 +373,18 @@ public List<Movie> getTopTenMovies(){
 			}
 		 topFiveMovie.sort(Comparator.comparing(Movie :: getAverageRating));
 		   Collections.reverse(topFiveMovie);
-		  
+		   List<Movie> top5Movie = new ArrayList<>();
 		   int index=1;
+		   int count=1;
 		    System.out.println("Recommended List Of Top Movies in Decending Order Based On Average Rating" + "\n\n");
-		    for(Movie movie : topFiveMovie.subList(0, 5)){
-		    	
-		    System.out.println(String.valueOf(index++)+": "+ movie);
-		    	
-		 //System.out.println(topFiveMovie);
-	}
-		    return topFiveMovie.size();
+		    for(Movie movie : topFiveMovie){
+		    	if(count <= 5){
+		    		top5Movie.add(movie);
+		    		 System.out.println(String.valueOf(index++)+": "+ movie);
+					}
+					count++;
+					}
+	    return top5Movie.size();
 			
 	}
 	

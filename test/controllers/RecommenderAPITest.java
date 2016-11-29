@@ -86,7 +86,7 @@ public class RecommenderAPITest {
 	@Test
 	public void testGetUserRecommendation(){
 		
-		assertEquals(1, test.getUserRecommendations(1l));
+		assertEquals(5, test.getUserRecommendations(2l));
 	}
 
 
