@@ -89,7 +89,14 @@ public class RecommenderAPITest {
 		assertEquals(5, test.getUserRecommendations(2l));
 	}
 
+	
+	@Test
+	public void testGetMovie(){
+		assertEquals(2.5, test.getMovie(2L), 01);
+	}
 
+	
+	
 	
 	@After
 	public void tearDown() throws Exception {

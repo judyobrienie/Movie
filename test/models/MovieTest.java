@@ -49,7 +49,7 @@ public class MovieTest {
 	  @Test
 	  public void testToString()
 	  {
-	    assertEquals ("Movie{Dance" + "," +" [CHILDRENS]}", movie.toString());
+	    assertEquals ("Movie{Dance" + "," + " 2000" + ","+" [CHILDRENS]}", movie.toString());
 	  
 	  }
 	  @Test

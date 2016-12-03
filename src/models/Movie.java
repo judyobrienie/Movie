@@ -54,7 +54,7 @@ public String toString() {
 public String toString()
 {
   return toStringHelper(this).addValue(title)
-  							//.addValue(releaseDate)
+  							.addValue(releaseDate)
   							//.addValue(imDbUrl)
   							.addValue(genre) 
   							//.addValue(movieRating)

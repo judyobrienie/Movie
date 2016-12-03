@@ -84,7 +84,7 @@ public class RecommenderAPI {
 	
 public void loadDefaultFiles() throws FileNotFoundException{
 		
-		File usersFile = new File("../Movie/lib/users.dat");
+		File usersFile = new File("../Movie/lib/users5.dat");
 		Scanner inUsers = new Scanner(usersFile);
 		String delims = "[ | ]";//each field in the file is separated(delimited) by a space.
 		while (inUsers.hasNextLine()) {
@@ -103,7 +103,7 @@ public void loadDefaultFiles() throws FileNotFoundException{
 		inUsers.close();
 
 
-		File moviesFile = new File("../Movie/lib/items.dat");
+		File moviesFile = new File("../Movie/lib/items5.dat");
 		Scanner inMovies = new Scanner(moviesFile);
 		String delims1 = "[|]";//each field in the file is separated(delimited) by a space.
 		while (inMovies.hasNextLine()) {
@@ -146,7 +146,7 @@ public void loadDefaultFiles() throws FileNotFoundException{
 
 
 
-		File ratingsFile = new File("../Movie/lib/ratings.dat");
+		File ratingsFile = new File("../Movie/lib/ratings5.dat");
 		Scanner inRatings = new Scanner(ratingsFile);
 		String delims2 = "[ | ]";//each field in the file is separated(delimited) by a space.
 
@@ -273,7 +273,7 @@ public List<Rating> addRating(Long userID, Long movieID, Float rating){
 	return listOfRating;
 }
 
-public void getMovie(Long movieID){
+public float getMovie(Long movieID){
 	System.out.println("User ID and Rating Amount" + "\n");
 	System.out.println(listOfMovie.get(movieID).movieRating);
     float rating = 0;
@@ -287,6 +287,7 @@ public void getMovie(Long movieID){
 		
 	System.out.println("Total Rating :" + rating);
 	System.out.println("Average Rating: " + averageRating);
+	return averageRating;
 	
 }   
 	
@@ -343,6 +344,7 @@ public List<Movie> getTopTenMovies(){
         }
         
 		System.out.println("Total Movies Rated by " + listOfUser.get(userID).firstName + " is " + count );
+		
 	}
 	
 	
