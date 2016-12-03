@@ -18,7 +18,7 @@ import org.junit.Test;
 public class RatingTest {
 
 	/**
-	 *  1. Method to check constructor set up 
+	 *   Method to check constructor set up 
 	 * 
 	 */
 
