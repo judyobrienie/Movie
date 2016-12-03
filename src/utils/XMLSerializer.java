@@ -9,7 +9,12 @@ import java.io.FileWriter;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Stack;
-
+/**
+ * @author Judy
+ * XML Serializer  that implements Serializer
+ * Code has been taken from Pacemaker project supplied in LABs
+ *
+ */
 public class XMLSerializer implements Serializer
 {
 

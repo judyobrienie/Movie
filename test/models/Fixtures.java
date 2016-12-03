@@ -4,6 +4,14 @@ import java.util.HashSet;
 import java.util.Set;
 import models.Genre;
 
+
+/**
+ * @author Judy
+ * @param users Array Of Users
+ * @param ratings Array of ratings
+ * @param movies Array of movies
+ * @return an arrays to for junit testing
+ */
 public class Fixtures
 {
    static Set<Genre>genre = new HashSet<>();
@@ -22,7 +30,7 @@ public class Fixtures
   
   public static Rating[] ratings =
 	  {
-		new Rating(1L,1L,0f),
+		new Rating(1L,1L,5f),
 		new Rating(1L,2L,2f),
 		new Rating(2L,2L,3f),
 		new Rating(2L,3L,-4f),
@@ -33,7 +41,7 @@ public class Fixtures
 		new Rating(1L,8L,0f),
 		new Rating(1L,9L,2f),
 		new Rating(1L,10L,3f),
-		new Rating(1L,11L,-4f),
+		new Rating(1L,11L,-5f),
 	  };
   
   public static Movie[] movies = 

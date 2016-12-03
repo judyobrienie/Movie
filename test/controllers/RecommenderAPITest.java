@@ -54,26 +54,48 @@ public class RecommenderAPITest {
 		}
 	
 
-	
+	/**
+	 * 3. test to check that the addUser() is not not adding duplicates
+	 *
+	 */
 	
 	
 	@Test
 	public void testAddUser()
 	{
 		assertEquals(2, test.getNumberOfUsers());
+		
 	}
 	
 	
+	/**
+	 * 3. test to check that the addMovie() is not not adding duplicates
+	 *
+	 */
 	@Test
 	public void testAddMovie(){
 		assertEquals(11, test.getNumberOfMovies());
 	}
 	
+	
+	/**
+	 * 3. test to check that the getTopTenMovies() is returning only 10 movies
+	 *    test of check that the top rated movie Toy Story is on top
+	 *    test of check the lowest rated movie is not last at 10 is should be 11
+	 */
 	@Test
     public void testGetTopTenMovies(){
 		assertEquals(10, test.getTopTenMovies().size()) ;
+		assertEquals(test.listOfMovie.get(1l), test.sortingMovie.get(0));
+		assertNotEquals(test.listOfMovie.get(11l), test.sortingMovie.get(9));
 		
 	}
+	
+
+	/**
+	 * 3. test to check that the addRating() is not not adding duplicates
+	 *
+	 */
 	
 	@Test
 	public void testAddRating(){
@@ -82,13 +104,23 @@ public class RecommenderAPITest {
 		assertEquals(2,test.listOfMovie.get(2l).movieRating.size());
 	}
 	
-	
+
+	/**
+	 * 3. test to check that the getUserRecommendation() is returning only 5 movies that user has not seen
+	 *
+	 */
 	@Test
 	public void testGetUserRecommendation(){
 		
 		assertEquals(5, test.getUserRecommendations(2l));
 	}
 
+	
+
+	/**
+	 * 3. test to check that the getMovie() is returning correct average rating
+	 *
+	 */
 	
 	@Test
 	public void testGetMovie(){

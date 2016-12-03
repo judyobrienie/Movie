@@ -1,5 +1,9 @@
 package utils;
-
+/**
+ * @author Judy
+ * Serializer Interface that was supplied as part of the assignment.
+ *
+ */
 public interface Serializer
 {
   void push(Object o);

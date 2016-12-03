@@ -8,8 +8,28 @@ import java.util.Set;
 import models.Genre;
 import utils.Serializer;
 import utils.XMLSerializer;
+/**
+ * This is the main class that uses console i/o to interact with the user.  
+ * It creates  an instance of RecommenderAPI with a serialiser to read in files in once from files ,saves them to an xml file and from there on uses file to add ongoing data.
+ * 
+ * 
+ * Known Bugs:  When using Large File Eclipse is logging a java.lang.OutOfMemoryError: Java heap space and will not serialise the large xml file 
+ * 
+ * 
+ * @author Judy O'Brien
+ * @version 1
+ */
 
+
+
+/**
+ * Creates a new scanner for i/o
+ * @param a new File called moviestore.xml
+ * @returns an array and hashmap of data
+ * @
+ */
 public class Main {
+
 
 
 	private static Scanner input = new Scanner(System.in);
@@ -26,12 +46,13 @@ public class Main {
 		}
 		else r.loadDefaultFiles();
 
-		
-		
-		
-		//Used to Read in the initial FILES
-		//RecommenderAPI r= new RecommenderAPI();
-		
+
+
+		/**
+		 * Runs the program using i/o from user
+		 * 
+		 */
+
 		System.out.println("Movie Database");
 		System.out.println("-----------------");
 
@@ -67,34 +88,34 @@ public class Main {
 						String gender = input.nextLine();
 						System.out.println("Please enter the Occupation: ");
 						String occupation = input.nextLine();
-				
+
 						r.addUser(firstName, lastName, age, gender, occupation);
-						
+
 						r.allUsers();
-						
+
 						break;
 					case 2:
-						
+
 						System.out.println("Choose User to Remove");
-					    System.out.println("=====================");
-					 // iterate map 
-					    r.allUsers();
-					    
+						System.out.println("=====================");
+						// iterate map 
+						r.allUsers();
+
 						Long choice = input.nextLong();
 						System.out.println("You have removed" + " : "  + r.listOfUser.get(choice)+ "\n");
 						System.out.println("Remaining Users:     " + "\n");
 						r.removeUser(choice);
-						
+
 						r.allUsers();
-						
+
 						break;
 					case 3:
-						
+
 						System.out.println("\n" + "Current List Of Movies");
 						System.out.println("=======================");
-						
+
 						r.allMovies();
-						
+
 						System.out.println("\n\n" +"Enter The Movie Name: ");
 						input.nextLine(); //swallow bug
 						String title = input.nextLine();
@@ -107,51 +128,51 @@ public class Main {
 						Set<Genre>genre = new HashSet<>();
 						int genreId = input.nextInt();
 						genre.add(Genre.fromId(genreId));
-						
+
 						r.addMovie(title, releaseDate, imDbUrl, genre);
-						
+
 						System.out.println("\n" + "UpDated List Of Movies");
 						System.out.println("=======================");
 
 						r.allMovies();
-						
+
 						break;
 					case 4:
-						
-						
+
+
 						System.out.println("\n" + "Pick A Movie You Would Like To Rate");
 						System.out.println("=======================");
 						r.allMovies();
-					    Long movieId1 = input.nextLong();
-					    System.out.println("Enter Your User Id");
-					    Long userId1 = input.nextLong();
-					    System.out.println("Enter Your Rating between -5 being bad and 5 being excellent");
-					    Float rating1 = input.nextFloat();
-					   // Rating rating = new Rating(userId1, movieId1, rating1);
-					    r.addRating(userId1, movieId1, rating1);
-					    
+						Long movieId1 = input.nextLong();
+						System.out.println("Enter Your User Id");
+						Long userId1 = input.nextLong();
+						System.out.println("Enter Your Rating between -5 being bad and 5 being excellent");
+						Float rating1 = input.nextFloat();
+						// Rating rating = new Rating(userId1, movieId1, rating1);
+						r.addRating(userId1, movieId1, rating1);
+
 						break;
 					case 5:
 						System.out.println("\n" + "Current List Of Movies");
 						System.out.println("=======================");
 						r.allMovies();
-					    System.out.println("\n");
-					    System.out.println("Choose a Movie to see its Ratings" + "\n");
-					    
-					    Long movieID = input.nextLong();
-					    r.getMovie(movieID);
-					    
+						System.out.println("\n");
+						System.out.println("Choose a Movie to see its Ratings" + "\n");
+
+						Long movieID = input.nextLong();
+						r.getMovie(movieID);
+
 						break;
 					case 6:
 						System.out.println("\n" + "Current List Of Users");
 						System.out.println("=======================");
 						r.allUsers();
-					    System.out.println("\n");
-					    System.out.println("Choose a User to see their Ratings" + "\n");
-					    
-					    Long userID = input.nextLong();
-					    r.getUserRatings(userID);
-						
+						System.out.println("\n");
+						System.out.println("Choose a User to see their Ratings" + "\n");
+
+						Long userID = input.nextLong();
+						r.getUserRatings(userID);
+
 						break;
 					case 7:
 						System.out.println("\n\n" +"Choose The User requiring recommendation: ");
@@ -167,8 +188,8 @@ public class Main {
 					case 9:
 						r.allUsers();
 						break;
-					
-					
+
+
 					default:    System.out.println("Invalid option entered: " + option);
 					mainMenu();
 					break;
@@ -196,21 +217,8 @@ public class Main {
 
 
 
-		
+
 	}
-
-
-
-
-
-
-
-	private static void getUserRecommendations(Long userId) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
 
 
 
@@ -232,8 +240,8 @@ public class Main {
 		System.out.println("7) Get Recommendations");
 		System.out.println("8) List Top Ten Movies");
 		System.out.println("9) List All Users");
-		
-		
+
+
 		System.out.println("0) Exit");
 		System.out.print("==>>");
 		int option = input.nextInt();

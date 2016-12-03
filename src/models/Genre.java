@@ -1,6 +1,11 @@
 package models;
 
-
+/**
+ * @author Judy
+ * @param A Genre enum, a data type consisting of a set of named values called elements
+ * 
+ * @return a hash map for individual genre elements
+ */
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,22 +32,28 @@ public  enum Genre {
 
 	public static  Map<Integer, Genre> genreMap = genreMap();
 	public int id;
-	
+
 	Genre(int id) {
 		this.id = id;
-		
+
 	}
-	
-	
+
+
+	/** Creating a HashSet of Type Genre. 
+	 * 
+	 * @return A Hashset of Genre
+	 */
+
+
 	private static Map<Integer, Genre> genreMap() {
 		genreMap = new HashMap<>();
 		for(Genre genre : Genre.values()) {
-			
+
 			genreMap.put(genre.getId(), genre);
 		}
 		return genreMap;
 	}
-	
+
 	public static Map<Integer, Genre> getGenreMap() {
 		return genreMap;
 	}
@@ -65,8 +76,8 @@ public  enum Genre {
 
 
 	public static Genre fromId(int genreId) {
-		
+
 		return genreMap.get(genreId);
-}
+	}
 
 }
