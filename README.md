@@ -28,6 +28,9 @@ Stops all tests that have been created
 
 
 
+
+
+
 RatingTest.Java
 Set up to test the User constructor  and methods
 
@@ -41,6 +44,9 @@ assertEquals used to test how i think the toString method should work - passed t
 
 8. tearDown()
 Stops all tests that have been created
+
+
+
 
 
 
@@ -65,5 +71,55 @@ Hash Set(which does not allow duplicates)  created form every element in ArrayLi
 
 13. tearDown()
 Stops all tests that have been created
+
+
+
+
+
+
+RecommenderAPITest.Java
+Set up to test the RecommenderAPI constructor  and methods
+
+
+14. testAddUser()
+Test to confirm that when creating a user the constructor is adding the new user to Hash Map of Users
+
+15. testAddMovie()
+Test to confirm that when creating a new movie the constructor is adding the new movie to Hash Map of Movies
+
+
+16. testGetTopTenMovies()
+a test to check that the getTopTenMovies() is returning only 10 movies
+b. test of check that the top rated movie Toy Story is on top
+c. test of check the lowest rated movie is not last at 10 is should be 11
+
+
+17. testAddRating()
+Test of check that when adding a rating it is also been adding to Movie Rating Map
+
+18. testGetUserRecommendation()
+Test for check that only 5 movies are being returned
+
+19. testGetMovie()
+Test to check that the correct average rating is being returned for a movie
+
+
+PersistenceTest.Java
+Test to check that if a xml file is not there the code will read from testPopulate()
+Test to save out to file
+delete file if it does exist to enable all test to run each time.
+
+
+KNOWN BUG
+=============
+
+After adding the large data set to program it ran but would not read in from save xml file.  Hanging on load up and throwing Java.lang.OutOfMemoryError: heap space.
+
+
+
+
+
+
+
 
 
