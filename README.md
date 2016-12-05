@@ -115,11 +115,30 @@ KNOWN BUG
 
 After adding the large data set to program it ran but would not read in from save xml file.  Hanging on load up and throwing Java.lang.OutOfMemoryError: heap space.
 
+As per Google Search re problem I followed guidelines to increse spece in the eclipse.ini file.
+Unfortunately this did not sort the issue at hand
 
-
-
-
-
+startup
+plugins/org.eclipse.equinox.launcher_1.3.100.v20150511-1540.jar
+--launcher.library
+plugins/org.eclipse.equinox.launcher.win32.win32.x86_64_1.1.300.v20150602-1417
+-product
+org.eclipse.epp.package.java.product
+--launcher.defaultAction
+openFile
+--launcher.XXMaxPermSize
+512M
+-showsplash
+org.eclipse.platform
+--launcher.XXMaxPermSize
+512m
+--launcher.defaultAction
+openFile
+--launcher.appendVmargs
+-vmargs
+-Dosgi.requiredJavaVersion=1.7
+-Xms512m
+-Xmx512m
 
 
 
