@@ -33,8 +33,8 @@ public class MovieTest {
 
 
 	/**
-	 *  1. Method to check constructor set up 
-	 * 
+	 *  9. Method to check constructor set up 
+	 *     Correct - Boundary Conditions
 	 */
 	@Test
 	public void testCreate()
@@ -48,8 +48,9 @@ public class MovieTest {
 
 
 	/**
-	 * 4.0 Method set up to test the equality of two objects
-	 */
+	 * 10.0 Method set up to test the equality of two objects
+	 *   Existence - Boundary Conditions
+	 */    
 	@Test
 	public void testEquals()
 	{
@@ -63,8 +64,8 @@ public class MovieTest {
 
 
 	/**
-	 * 3. Method set up to test the creation of toString()
-	 *
+	 * 11. Method set up to test the creation of toString()
+	 *     Ordering - Boundary Conditions
 	 */
 	@Test
 	public void testToString()
@@ -74,8 +75,8 @@ public class MovieTest {
 	}
 
 	/**
-	 * 2. method set up to test id. Hashset created to ensure no duplicates
-	 *
+	 * 12. method set up to test id. Hashset created to ensure no duplicates
+	 *     Existence - Boundary Conditions
 	 */
 	@Test
 	public void testIds()
@@ -90,7 +91,7 @@ public class MovieTest {
 
 
 	/**
-	 * to shut down all tests
+	 *13. to shut down all tests
 	 * @throws Exception
 	 */
 	@After

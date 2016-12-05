@@ -55,8 +55,8 @@ public class RecommenderAPITest {
 	
 
 	/**
-	 * 3. test to check that the addUser() is not not adding duplicates
-	 *
+	 * 14. test to check that the addUser() is not not adding duplicates and populating hash map
+	 *     //CORRECT Boundary Condition
 	 */
 	
 	
@@ -69,8 +69,8 @@ public class RecommenderAPITest {
 	
 	
 	/**
-	 * 3. test to check that the addMovie() is not not adding duplicates
-	 *
+	 * 15. test to check that the addMovie() is not not adding duplicates and populating hash map
+	 *     CORRECT Boundary Condition
 	 */
 	@Test
 	public void testAddMovie(){
@@ -79,22 +79,25 @@ public class RecommenderAPITest {
 	
 	
 	/**
-	 * 3. test to check that the getTopTenMovies() is returning only 10 movies
+	 * 16. test to check that the getTopTenMovies() is returning only 10 movies
 	 *    test of check that the top rated movie Toy Story is on top
-	 *    test of check the lowest rated movie is not last at 10 is should be 11
+	 *    ORDERING   Boundary Conditions
+	 *    RANGE      Boundary Conditions
 	 */
 	@Test
     public void testGetTopTenMovies(){
 		assertEquals(10, test.getTopTenMovies().size()) ;
 		assertEquals(test.listOfMovie.get(1l), test.sortingMovie.get(0));
-		assertNotEquals(test.listOfMovie.get(11l), test.sortingMovie.get(9));
 		
+		//test of check the lowest rated movie is not last at 10 is should be 11
+		assertNotEquals(test.listOfMovie.get(11l), test.sortingMovie.get(9));
+		assertTrue(!test.sortingMovie.contains(11l));
 	}
 	
 
 	/**
-	 * 3. test to check that the addRating() is not not adding duplicates
-	 *
+	 * 17. test to check that the addRating() is adding to Map
+	 *     CORRECT Boundary Conditions
 	 */
 	
 	@Test
@@ -106,8 +109,8 @@ public class RecommenderAPITest {
 	
 
 	/**
-	 * 3. test to check that the getUserRecommendation() is returning only 5 movies that user has not seen
-	 *
+	 * 18. test to check that the getUserRecommendation() is returning only 5 movies that user has not seen
+	 *     RANGE Boundary Conditions
 	 */
 	@Test
 	public void testGetUserRecommendation(){
@@ -118,13 +121,19 @@ public class RecommenderAPITest {
 	
 
 	/**
-	 * 3. test to check that the getMovie() is returning correct average rating
+	 * 19. test to check that the getMovie() is returning correct average rating
+	 *     Cross Check Results - Bicep
+	 *     
 	 *
 	 */
 	
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testGetMovie(){
-		assertEquals(2.5, test.getMovie(2L), 01);
+		float averageRating;
+		averageRating = 5/2;
+		assertEquals(averageRating, test.getMovie(2L), 1);
+		assertEquals(2.5, test.getMovie(2L), 1);
 	}
 
 	

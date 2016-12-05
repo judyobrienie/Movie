@@ -18,8 +18,8 @@ import org.junit.Test;
 public class RatingTest {
 
 	/**
-	 *   Method to check constructor set up 
-	 * 
+6	 *  6. Method to check constructor set up 
+	 *     Correct - Boundary Conditions
 	 */
 
 	@Test
@@ -32,8 +32,8 @@ public class RatingTest {
 	}
 
 	/**
-	 * 3. Method set up to test the creation of toString()
-	 *
+	 * 7. Method set up to test the creation of toString()
+	 *    Ordering - Boundary Conditions
 	 */
 
 
@@ -44,10 +44,16 @@ public class RatingTest {
 
 	}
 
+	
+
+
+	/**
+	 *8.  to shut down all tests
+	 * @throws Exception
+	 */
 	@After
 	public void tearDown() throws Exception {
 	}
-
 
 
 }

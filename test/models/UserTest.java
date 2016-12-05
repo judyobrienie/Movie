@@ -23,7 +23,7 @@ public class UserTest
 
 	/**
 	 *  1. Method to check constructor set up 
-	 * 
+	 *     Correct - Boundary Conditions
 	 */
 	@Test
 	public void testCreate()
@@ -38,7 +38,7 @@ public class UserTest
 
 	/**
 	 * 2. method set up to test id. Hashset created to ensure no duplicates
-	 *
+	 *Existence - Boundary Conditions
 	 */
 	@Test
 	public void testIds()
@@ -54,7 +54,7 @@ public class UserTest
 
 	/**
 	 * 3. Method set up to test the creation of toString()
-	 *
+	 *   Ordering - Boundary Conditions
 	 */
 	@Test
 	public void testToString()
@@ -66,7 +66,9 @@ public class UserTest
 
 	/**
 	 * 4.0 Method set up to test the equality of two objects
-	 */
+	 * Existence - Boundary Conditions
+	 */   
+	
 	@Test
 	public void testEquals()
 	{
